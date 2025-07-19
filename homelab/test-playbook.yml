@@ -1,0 +1,10 @@
+- name: Test connection and create a file
+  hosts: homelab
+  tasks:
+    - name: Ping the target
+      ansible.builtin.ping:
+
+    - name: Create a test file
+      ansible.builtin.file:
+        path: /tmp/hello-from-ansible.txt
+        state: touch
