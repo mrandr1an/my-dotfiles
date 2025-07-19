@@ -1,0 +1,35 @@
+name: Run Ansible Playbook on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-playbook:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Copy inventory file
+        run: echo "[homelab]\nlope ansible_host=192.168.2.20 ansible_user=chris\nberry ansible_host=192.168.2.19 ansible_user=chris" > inventory.ini
+
+      - name: Run the Ansible playbook
+        run: |
+          ansible-playbook -i inventory.ini homelab/playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"  # To avoid SSH key verification issues
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Use GitHub Secrets for SSH key
+          
+
