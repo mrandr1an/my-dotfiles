@@ -17,6 +17,12 @@ jobs:
         with:
           WG_CONFIG_FILE: ${{ secrets.WG_CONFIG_FILE }}
 
+      - name: Test VPN connectivity to lope
+        run: ping -c 3 192.168.2.20
+
+      - name: Test VPN connectivity to berry
+        run: ping -c 3 192.168.2.19
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
