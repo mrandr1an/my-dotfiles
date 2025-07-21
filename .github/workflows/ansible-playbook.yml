@@ -49,9 +49,9 @@ jobs:
           echo "echo \$LOPE_SSH_PASSPHRASE" > ~/.askpass_lope && chmod +x ~/.askpass_lope
           echo "echo \$BERRY_SSH_PASSPHRASE" > ~/.askpass_berry && chmod +x ~/.askpass_berry
           #Add lope key
-          echo "$LOPE_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_lope ssh-add - > /dev/null
+          echo "$LOPE_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_lope ssh-add - 
           #Add berry key
-          echo "$BERRY_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_berry ssh-add - > /dev/null
+          echo "$BERRY_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_berry ssh-add - 
 
       - name: Run the Ansible playbook
         run: |
