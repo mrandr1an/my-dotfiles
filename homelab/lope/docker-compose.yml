@@ -4,7 +4,7 @@ services:
     container_name: wg-easy         # Name of the container.
     environment:                    # Environment variables to configure the instance.
       - LANG=en                     # Language settings.
-      - WG_HOST=5.54.196.2    # Public IP or domain name where WG-Easy is accessible.
+      - WG_HOST=liourtas.ddns.net          # Public IP or domain name where WG-Easy is accessible.
       - PASSWORD_HASH=$$2y$$05$$gZWPNPoXsGD/atIxqD/OfekfspzA1MTQUPZOPHgXg1LgELw7relii # Bcrypt hash for Web UI login.
       - PORT=51821                  # Port for the web interface.
       - WG_PORT=51820               # WireGuard port for VPN traffic.
@@ -20,3 +20,10 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv4.ip_forward=1
     restart: unless-stopped         # Ensures the container restarts automatically unless manually stopped.
+  ddns-updater:
+    image: ghcr.io/noipcom/noip-duc:latest
+    container_name: ddns-updater
+    environment: 
+      - NOIP_USERNAME=mq6yn7e
+      - NOIP_PASSWORD=DwH9Hhopc2vG
+      - NOIP_HOSTNAMES=group-liourtas
