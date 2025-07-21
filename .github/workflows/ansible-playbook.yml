@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+env:
+  # Use the same ssh-agent socket value across all jobs
+  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
 jobs:
   run-playbook:
@@ -33,16 +36,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install ansible
 
-      - name: Set up SSH key
+      - name: Set up SSH key with passphrase
+        env:
+          LOPE_SSH_PASSPHRASE: ${{secrets.LOPE_SSH_PASSPHRASE}}
+          BERRY_SSH_PASSPHRASE: ${{secrets.BERRY_SSH_PASSPHRASE}}
+          LOPE_SSH_PRIVATE_KEY: ${{secrets.LOPE_SSH_PRIVATE_KEY}}
+          BERRY_SSH_PRIVATE_KEY: ${{secrets.BERRY_SSH_PRIVATE_KEY}}
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
-          ssh-keyscan -H 192.168.2.19 >> ~/.ssh/known_hosts
-          ssh-keyscan -H 192.168.2.20 >> ~/.ssh/known_hosts
- 
+          # Start ssh-agent
+          eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
+          #Create and chmod the askpass script
+          echo "echo \$LOPE_SSH_PASSPHRASE" > ~/.askpass_lope && chmod +x ~/.askpass_lope
+          echo "echo \$BERRY_SSH_PASSPHRASE" > ~/.askpass_berry && chmod +x ~/.askpass_berry
+          #Add lope key
+          echo "$LOPE_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_lope ssh-add - > /dev/null
+          #Add berry key
+          echo "$BERRY_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_berry ssh-add - > /dev/null
+
       - name: Run the Ansible playbook
         run: |
           ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/playbook.yml
