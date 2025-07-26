@@ -1,0 +1,53 @@
+name: Copy new docker compose on berry
+
+on:
+  push:
+    paths:
+      - 'homelab/berry/managed/docker-compose.yml'
+env:
+  # Use the same ssh-agent socket value across all jobs
+  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+  berry: ${{ secrets.BERRY_BECOME_PASS }}
+
+jobs:
+  run-playbook:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up WireGuard connection
+        uses: niklaskeerl/easy-wireguard-action@v2
+        with:
+          WG_CONFIG_FILE: ${{ secrets.WG_CONFIG_FILE }}
+
+      - name: Test VPN connectivity to berry
+        run: ping -c 3 192.168.2.19
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Set up SSH key with passphrase
+        env:
+          BERRY_SSH_PASSPHRASE: ${{secrets.BERRY_SSH_PASSPHRASE}}
+          BERRY_SSH_PRIVATE_KEY: ${{secrets.BERRY_SSH_PRIVATE_KEY}}
+        run: |
+          # Start ssh-agent
+          eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
+          #Create and chmod the askpass script
+          echo "echo \$BERRY_SSH_PASSPHRASE" > ~/.askpass_berry && chmod +x ~/.askpass_berry
+          #Add berry key
+          echo "$BERRY_SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=none SSH_ASKPASS=~/.askpass_berry ssh-add - 
+
+      - name: Run the Ansible playbook
+        run: |
+          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/berry-update-compose.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"  # To avoid SSH key verification issues
