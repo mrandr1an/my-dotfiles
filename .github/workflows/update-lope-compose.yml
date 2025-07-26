@@ -35,6 +35,10 @@ jobs:
           pip install ansible
           ansible-galaxy collection install community.docker
 
+      - name: Check availability of community.docker
+        run: |
+          ansible-doc community.docker.docker_compose_v2
+
       - name: Set up SSH key with passphrase
         env:
           LOPE_SSH_PASSPHRASE: ${{secrets.LOPE_SSH_PASSPHRASE}}
