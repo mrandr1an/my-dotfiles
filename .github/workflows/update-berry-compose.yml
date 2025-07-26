@@ -33,7 +33,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ansible
-          ansible-galaxy collection install community.docker
+          ansible-galaxy collection install -r homelab/ansible/requirements.yml
 
       - name: Set up SSH key with passphrase
         env:
@@ -49,6 +49,6 @@ jobs:
 
       - name: Run the Ansible playbook
         run: |
-          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/berry-update-compose.yml -e "compose_file=homelab/berry/managed/docker-compose.yml"
+          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/lope-update-compose.yml -e "compose_file=$(pwd)/homelab/berry/managed/docker-compose.yml" -e "ansible_become_password=$berry_become_pass"
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"  # To avoid SSH key verification issues

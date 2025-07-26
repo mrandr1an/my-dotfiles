@@ -1,5 +1,9 @@
 - name: Update Managed Docker Compose
   hosts: group_berry
+
+  collections:
+    - community.docker
+
   tasks:
     - name: Ensure docker-compose file exists in managed
       stat: 
