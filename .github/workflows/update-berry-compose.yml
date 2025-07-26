@@ -49,6 +49,6 @@ jobs:
 
       - name: Run the Ansible playbook
         run: |
-          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/berry-update-compose.yml
+          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/berry-update-compose.yml -e "compose_file=homelab/berry/managed/docker-compose.yml"
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"  # To avoid SSH key verification issues

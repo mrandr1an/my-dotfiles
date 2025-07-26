@@ -49,7 +49,7 @@ jobs:
 
       - name: Run the Ansible playbook
         run: |
-          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/lope-update-compose.yml
+          ansible-playbook -i homelab/ansible/inventory.ini homelab/ansible/lope-update-compose.yml -e "compose_file=homelab/lope/managed/docker-compose.yml"
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"  # To avoid SSH key verification issues
 
