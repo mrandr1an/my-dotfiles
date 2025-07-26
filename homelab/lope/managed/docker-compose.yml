@@ -1,0 +1,52 @@
+services:
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: syncthing 
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./syncthing/data:/data
+      - ./syncthing/config:/config
+    ports:
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    restart: unless-stopped
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    ports:
+      - "4533:4533"
+    environment:
+      - ND_SCANINTERVAL=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+    volumes:
+      - ./navidrome/music:/music:ro
+      - ./navidrome/data:/data
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    hostname: netdata
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - ./netdata/config:/etc/netdata
+      - ./netdata/netdatalib:/var/lib/netdata
+      - ./netdata/netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # ← Add this line
+    restart: unless-stopped
