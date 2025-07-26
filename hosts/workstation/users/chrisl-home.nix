@@ -33,7 +33,7 @@
   enable = true;
  };
  
- home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
+#home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
   
  #Home Packages
  home.packages = with pkgs;
