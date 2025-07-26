@@ -1,0 +1,32 @@
+- name: Update Managed Docker Compose
+  hosts: berry
+  tasks:
+    - name: Ensure docker-compose file exists in managed
+      stat: 
+        path: ~/selfhosted/managed/docker-compose.yml
+      register: docker_compose_file
+
+    - name: Fail if docker-compose does not exist
+      fail: 
+        msg: "Docker Compose file does not exist at ~/selfhosted/managed"
+      when: docker_compose_file.stat.exists == false 
+   
+    - name: Copy new docker compose file
+      ansible.builtin.copy:
+        src: "{{ compose_file }}"
+        dest: ~/selfhosted/managed/docker-compose.yml
+        backup: yes
+
+    - name: Validate docker-compose configuration
+      command: docker compose -f ~/selfhosted/managed/docker-compose.yml config
+      register: validated
+      failed_when: validated.rc != 0
+
+    - name: Deploy docker containers
+      become: true
+      community.docker.docker_compose_v2:
+        project_src: /home/chris/selfhosted/managed
+        pull: missing 
+        state: present
+        remove_orphans: true
+        recreate: never
