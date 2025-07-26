@@ -7,7 +7,7 @@ on:
 env:
   # Use the same ssh-agent socket value across all jobs
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-  berry: ${{ secrets.BERRY_BECOME_PASS }}
+  berry_become_pass: ${{ secrets.BERRY_BECOME_PASS }}
 
 jobs:
   run-playbook:
