@@ -5,5 +5,6 @@
    services.displayManager.sddm.enable = true;  
    #Set Theme
    services.displayManager.sddm.theme = "sddm-astronaut-theme";
+   services.displayManager.sddm.package = pkgs.unstable.kdePackages.sddm;
    services.displayManager.sddm.wayland.enable = true; 
 }

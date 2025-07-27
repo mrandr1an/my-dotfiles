@@ -5,6 +5,10 @@
 { config, pkgs, ... }:
  let
   sddmService = import ../common/services/sddm.nix;
+
+  unstableOverlay = self: super: {
+    unstable = import <nixpkgs> { system = "x86_64-linux"; };
+  };
  in
 {
   imports =
@@ -14,7 +18,12 @@
       # Include Common Services
       sddmService
     ];
-  
+ 
+  #Enable unstable packages
+  nixpkgs.config.packageOverrides = pkgs: with pkgs; {
+    unstable = unstableOverlay pkgs;
+  }; 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
