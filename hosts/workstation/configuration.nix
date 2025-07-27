@@ -5,6 +5,7 @@
 { config, pkgs, ... }:
  let
   sddmService = import ../common/services/sddm.nix;
+  niriService = import ../common/services/niri.nix;
  in
 {
   imports =
@@ -13,6 +14,7 @@
       ./hardware-configuration.nix
       # Include Common Services
       sddmService
+      niriService
     ];
 
   # Bootloader.
@@ -104,8 +106,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-  # Install Niri.
-  programs.niri.enable = true;
   # Install hyprland
   programs.hyprland.enable = true;
 
