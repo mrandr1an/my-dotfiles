@@ -3,10 +3,16 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+ let
+  sddmService = import ../common/services/sddm.nix;
+ in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Include Common Services
+      sddmService
     ];
   
   # Bootloader.
@@ -44,8 +50,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  #Enable sddm display manager
-  services.displayManager.sddm.enable = true;
   # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.gnome.enable = true;
 
