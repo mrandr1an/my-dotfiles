@@ -1,1 +1,11 @@
 * Dotfiles Repository
+
+** Introduction
+
+** Workflow && Maintenance
+
+** Hosts
+*** Laptop
+*** Workstation
+*** Lope
+*** Berry
