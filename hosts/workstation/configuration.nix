@@ -5,10 +5,6 @@
 { config, pkgs, ... }:
  let
   sddmService = import ../common/services/sddm.nix;
-
-  unstableOverlay = self: super: {
-    unstable = import <nixpkgs> { system = "x86_64-linux"; };
-  };
  in
 {
   imports =
@@ -18,11 +14,6 @@
       # Include Common Services
       sddmService
     ];
- 
-  #Enable unstable packages
-  nixpkgs.config.packageOverrides = pkgs: with pkgs; {
-    unstable = unstableOverlay pkgs;
-  }; 
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -134,9 +125,6 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.comic-shanns-mono
     nerd-fonts.symbols-only
-    (pkgs.callPackage ../common/services/sddm-astronaut-theme.nix {
-        theme = "japanese_aesthetic";
-      })
   ];
  
   programs.virt-manager.enable = true;
