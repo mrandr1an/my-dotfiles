@@ -125,6 +125,9 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.comic-shanns-mono
     nerd-fonts.symbols-only
+    (pkgs.callPackage ../common/services/sddm-astronaut-theme.nix {
+        theme = "japanese_aesthetic";
+      })
   ];
  
   programs.virt-manager.enable = true;
