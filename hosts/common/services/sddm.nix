@@ -2,9 +2,10 @@
 let
    sddm-astronaut = pkgs.sddm-astronaut.override {
       themeConfig = {
-      AccentColor = "#746385";
-      FormPosition = "left";
-      ForceHideCompletePassword = true; 
+       AccentColor = "#746385";
+       FormPosition = "left";
+       ForceHideCompletePassword = true; 
+       embeddedTheme = "japanese_aesthetic";
       };
    };
 in
