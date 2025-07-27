@@ -123,10 +123,6 @@
     nerd-fonts.symbols-only
   ];
  
-  security.pki.certificateFiles = [
-    ../../certs/vaultwarden-rootCA.pem
-  ];
-
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = ["chrisl"];
   users.groups.ubridge.members = ["chrisl"];
