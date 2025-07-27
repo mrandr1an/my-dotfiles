@@ -34,6 +34,8 @@
  };
  
 #home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
+
+home.file.".config/niri/config".source  = ../../dotfiles/niri;
   
  #Home Packages
  home.packages = with pkgs;
