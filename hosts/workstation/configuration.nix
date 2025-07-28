@@ -16,6 +16,13 @@
       sddmService
       niriService
     ];
+  
+  #System Level Secret
+  age.secrets.secret1 = {
+    file = ../../secrets/secret1.age;
+    owner = "chrisl";
+    mode = "0400";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

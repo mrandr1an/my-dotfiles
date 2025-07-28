@@ -51,4 +51,11 @@ home.file.".config/niri/".source  = ../../../dotfiles/niri;
    pkgs.bitwarden-desktop
    pkgs.ansible_2_17
  ];
+
+ programs.bash = {
+  enable = true;
+  shellAliases = {
+    echo-secret = "echo Hello $(cat /run/agenix/secret1)";
+  };
+};
 }

@@ -35,9 +35,9 @@
        };
     };
   
-   devShells.x86-64-linux.default = pkgs.mkShell {
+   devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [
-        agenix.packages.aarch64-linux.default
+        agenix.packages.x86_64-linux.default
       ];
     };
   };
