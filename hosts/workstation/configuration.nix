@@ -125,6 +125,7 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.comic-shanns-mono
     nerd-fonts.symbols-only
+    inputs.agenix.packages."${system}".default
   ];
  
   programs.virt-manager.enable = true;
