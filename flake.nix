@@ -13,7 +13,6 @@
    let 
      system = "x86_64-linux";
      lib = nixpkgs.lib;
-     overlays = [agenix.overlay];
      pkgs = import nixpkgs {inherit system;};
    in {
     nixosConfigurations = {
