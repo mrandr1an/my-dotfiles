@@ -13,7 +13,10 @@
    let 
      system = "x86_64-linux";
      lib = nixpkgs.lib;
-     pkgs = import nixpkgs {inherit system;};
+     pkgs = import nixpkgs {
+            inherit system;
+	    config.allowUnfree = true;
+     };
    in {
     nixosConfigurations = {
 	 workstation = lib.nixosSystem {
@@ -31,6 +34,11 @@
 		   ];  
        };
     };
+  
+   devShells.x86-64-linux.default = pkgs.mkShell {
+      packages = [
+        agenix.packages.aarch64-linux.default
+      ];
+    };
   };
-
 }
