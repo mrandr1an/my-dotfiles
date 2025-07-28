@@ -6,23 +6,24 @@
         home-manager.url = "github:nix-community/home-manager/release-25.05";
 	home-manager.inputs.nixpkgs.follows = "nixpkgs";      
         agenix.url = "github:ryantm/agenix";
+        agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {self,nixpkgs,home-manager,agenix,...}:
    let 
      system = "x86_64-linux";
-     pkgs = import nixpkgs {inherit system;};
      lib = nixpkgs.lib;
+     overlays = [agenix.overlay];
+     pkgs = import nixpkgs {inherit system;};
    in {
     nixosConfigurations = {
 	 workstation = lib.nixosSystem {
-	 system = "x86_64-linux";
+         inherit pkgs system;
 	 modules = [ 
  		     ./hosts/workstation/configuration.nix 
-                     agenix.nixosModules.default
+                     agenix.nixosModules.age
                      home-manager.nixosModules.home-manager
                      {
-                        age.secrets = import ./secrets/secrets.nix;
 			home-manager.useGlobalPkgs = true;
 			home-manager.useUserPackages = true;
 			home-manager.backupFileExtension = "backup";
