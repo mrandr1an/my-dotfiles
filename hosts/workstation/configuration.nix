@@ -26,7 +26,7 @@
     mode = "0400";
   };
    
-  age.identityPaths = ["/home/chrisl/.ssh/id_ed25519_host"];
+  age.identityPaths = ["/home/chrisl/.ssh/id_workstation"];
   
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
