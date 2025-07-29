@@ -20,8 +20,8 @@
     ];
   
   #System Level Secret
-  age.secrets.secret1 = {
-    file = ../../secrets/secret1.age;
+  age.secrets.id_github_workstation = {
+    file = ../../secrets/id_github_workstation.age;
     owner = "chrisl";
     mode = "0400";
   };
