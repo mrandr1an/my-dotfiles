@@ -25,9 +25,9 @@
     owner = "chrisl";
     mode = "0400";
   };
-  
+   
   age.identityPaths = ["/home/chrisl/.ssh/id_ed25519_host"];
-
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
