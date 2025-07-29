@@ -6,6 +6,7 @@
  let
   sddmService = import ../common/services/sddm.nix;
   niriService = import ../common/services/niri.nix;
+  bitwardenService = import ../common/services/bitwarden.nix;
  in
 {
   imports =
@@ -15,6 +16,7 @@
       # Include Common Services
       sddmService
       niriService
+      bitwardenService
     ];
   
   #System Level Secret
