@@ -55,7 +55,7 @@ home.file.".config/niri/".source  = ../../../dotfiles/niri;
  programs.bash = {
   enable = true;
   shellAliases = {
-    echo-secret = "echo Hello $(cat /run/agenix/secret1)";
+    echo-secret = "echo Hello $(cat /run/agenix/id_github_workstation)";
   };
 };
 }
