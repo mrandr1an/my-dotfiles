@@ -1,7 +1,23 @@
 {config, pkgs, ...} :
 
 {
+ imports = [ <agenix/modules/home-manager.age.nix> ];
+ 
+ age.secrets.id_github_workstation_pub = 
+ {
+  file = ../secrets/id_github_workstation_pub.age;
+ };
+ 
+ age.secrets.id_github_workstation = 
+ {
+  file = ../secrets/id_github_workstation.age;
+ };
 
+ home.file.".ssh/id_github_workstation_pub" = config.age.secrets.id_github_workstation_pub.path;
+ home.file.".ssh/id_github_workstation" = config.age.secrets.id_github_workstation.path;
+ home.file.".ssh".directory = true;
+ home.file.".ssh".permissions = "700";
+ 
  home.username = "chrisl";
  home.homeDirectory = "/home/chrisl";
  home.stateVersion = "25.05";

@@ -27,7 +27,7 @@
   };
    
   age.identityPaths = ["/home/chrisl/.ssh/id_workstation"];
-  
+    
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -153,7 +153,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
+  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
