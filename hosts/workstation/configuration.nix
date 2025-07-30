@@ -20,11 +20,11 @@
     ];
   
   #System Level Secret
-  age.secrets.id_github_workstation = {
-    file = ../../secrets/id_github_workstation.age;
-    owner = "chrisl";
-    mode = "0400";
-  };
+  #age.secrets.id_github_workstation = {
+  #  file = ../../secrets/id_github_workstation.age;
+  #  owner = "chrisl";
+  #  mode = "0400";
+  #};
    
   age.identityPaths = ["/home/chrisl/.ssh/id_workstation"];
     

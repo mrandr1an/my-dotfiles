@@ -6,6 +6,18 @@
  home.homeDirectory = "/home/chrisl";
  home.stateVersion = "25.05";
 
+ age.secrets.id_github_workstation = {
+    file = ../../secrets/id_github_workstation.age;
+    owner = "chrisl";
+    mode = "0400";
+ };
+
+ age.secrets.id_github_workstation_pub = {
+    file = ../../secrets/id_github_workstation_pub.age;
+    owner = "chrisl";
+    mode = "0400";
+ };
+
  #Git Options
  programs.git = 
  {

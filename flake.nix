@@ -29,12 +29,29 @@
 			home-manager.useGlobalPkgs = true;
 			home-manager.useUserPackages = true;
 			home-manager.backupFileExtension = "backup";
-			home-manager.users.chrisl = import ./hosts/workstation/users/chrisl-home.nix;
                      }
 		   ];  
        };
     };
-  
+       
+     # Purely user-scoped Home Manager config 
+    homeConfigurations.chrisl = home-manager.lib.homeManagerConfiguration {
+        inherit system;
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+        modules = [
+          agenix.homeManagerModules.default
+          ./hosts/workstation/users/chrisl-home.nix
+        ];
+
+        extraSpecialArgs = {
+          inherit agenix;
+        };
+      };
+
    devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [
         agenix.packages.x86_64-linux.default
