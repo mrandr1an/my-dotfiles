@@ -2,6 +2,10 @@
 
 {
 
+ home.username = "chrisl";
+ home.homeDirectory = "/home/chrisl";
+ home.stateVersion = "25.05";
+
  #Git Options
  programs.git = 
  {
