@@ -52,14 +52,4 @@ home.file.".config/niri/".source  = ../../../dotfiles/niri;
    pkgs.ansible_2_17
  ];
 
- #Configure identities
-home.file.".ssh/id_github_workstation" = {
-  source = /run/agenix/id_github_workstation;
-  permissions = "0600";
-};
-
-home.file.".ssh/id_github_workstation.pub" = {
-  source = /run/agenix/id_github_workstation_pub;
-  permissions = "0644";
-};
 }
