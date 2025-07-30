@@ -153,6 +153,10 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  
+  services.openssh.settings.PasswordAuthentication = true;
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
   #Configure SSH Secrets
   age.secrets.id_github_workstation = {
     file = ../../secrets/id_github_workstation.age;
