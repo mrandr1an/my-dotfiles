@@ -14,7 +14,11 @@
  	agenix = {
           url = "github:ryantm/agenix";
           inputs.nixpkgs.follows = "nixpkgs"; 
-	};       
+	};
+       
+        flake-parts = {
+ 	 url = "github:hercules-ci/flake-parts";
+	};
   };
 
   outputs = {self,nixpkgs,home-manager,agenix,flake-parts...}:
