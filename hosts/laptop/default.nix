@@ -1,7 +1,7 @@
 {inputs,lib,...}: 
 
 {
- flake.nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
+ flake.nixosConfigurations.laptop = inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   modules = [
       ./configuration.nix
