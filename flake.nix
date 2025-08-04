@@ -21,36 +21,16 @@
 	};
   };
 
-  outputs = {self,nixpkgs,home-manager,agenix,flake-parts...}:
-   let
-     system = "x86_64-linux";
-     lib = nixpkgs.lib;
-     pkgs = import nixpkgs {
-            inherit system;
-	    config.allowUnfree = true;
+  outputs = inputs@{self,flake-parts,...}:
+   flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
+   {
+     imports = [./hosts/workstation];
+     flake = {};
+     systems = [ "x86_64-linux"];
+     perSystem = {config,pkgs,inputs',self',system,...}: {
+      devShells.default = pkgs.mkShell {
+          packages = [ inputs.agenix.packages.${system}.default ];
+        };
      };
-   in {
-    nixosConfigurations = {
-	 workstation = lib.nixosSystem {
-         inherit pkgs system;
-	 modules = [
- 		     ./hosts/workstation/configuration.nix
-                     agenix.nixosModules.age
-                     home-manager.nixosModules.home-manager
-                     {
-			home-manager.useGlobalPkgs = true;
-			home-manager.useUserPackages = true;
-			home-manager.backupFileExtension = "backup";
-			home-manager.users.chrisl = import ./hosts/workstation/users/chrisl-home.nix;
-                     }
-		   ];
-       };
-    };
-
-   devShells.x86_64-linux.default = pkgs.mkShell {
-      packages = [
-        agenix.packages.x86_64-linux.default
-      ];
-    };
-  };
+   });	
 }
