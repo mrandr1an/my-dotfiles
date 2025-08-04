@@ -24,9 +24,15 @@
   outputs = inputs@{self,flake-parts,...}:
    flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
    {
-     imports = [./hosts/workstation];
+     imports = [
+		./hosts/workstation
+		./hosts/laptop
+    	       ];
+
      flake = {};
+
      systems = [ "x86_64-linux"];
+
      perSystem = {config,pkgs,inputs',self',system,...}: {
       devShells.default = pkgs.mkShell {
           packages = [ inputs.agenix.packages.${system}.default ];
