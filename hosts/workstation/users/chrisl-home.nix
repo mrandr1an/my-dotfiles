@@ -50,6 +50,7 @@ home.file.".config/niri/".source  = ../../../dotfiles/niri;
    pkgs.feishin
    pkgs.bitwarden-desktop
    pkgs.ansible_2_17
+   pkgs.walker
  ];
 
 }
