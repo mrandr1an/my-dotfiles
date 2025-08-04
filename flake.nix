@@ -2,14 +2,22 @@
   description = "My first flake";
 
   inputs = {
-	nixpkgs.url = "nixpkgs/nixos-25.05";
-        home-manager.url = "github:nix-community/home-manager/release-25.05";
-	home-manager.inputs.nixpkgs.follows = "nixpkgs";
-        agenix.url = "github:ryantm/agenix";
-        agenix.inputs.nixpkgs.follows = "nixpkgs";
+        nixpkgs = {
+	  url = "nixpkgs/nixos-25.05";
+        };
+        
+        home-manager = {
+          url = "github:nix-community/home-manager/release-25.05";
+	  inputs.nixpkgs.follows = "nixpkgs";
+        };
+	
+ 	agenix = {
+          url = "github:ryantm/agenix";
+          inputs.nixpkgs.follows = "nixpkgs"; 
+	};       
   };
 
-  outputs = {self,nixpkgs,home-manager,agenix,...}:
+  outputs = {self,nixpkgs,home-manager,agenix,flake-parts...}:
    let
      system = "x86_64-linux";
      lib = nixpkgs.lib;
