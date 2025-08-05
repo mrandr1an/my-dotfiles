@@ -31,11 +31,18 @@
 
      flake = {};
 
-     systems = [ "x86_64-linux"];
+     systems = [ "x86_64-linux" ];
 
      perSystem = {config,pkgs,inputs',self',system,...}: {
-      devShells.default = pkgs.mkShell {
-          packages = [ inputs.agenix.packages.${system}.default ];
+      devShells.nix = pkgs.mkShell {
+          packages = [ 
+		      inputs.agenix.packages.${system}.default 
+		      pkgs.neovim
+		      pkgs.git
+		     ];
+	  shellHook = ''
+		      echo "You are in NixOS dev mode"
+	  	      '';
         };
      };
    });	
