@@ -4,7 +4,7 @@
 
  home.username = "chrisl";
  home.homeDirectory = "/home/chrisl";
- home.stateVersion = "25.05";
+ home.stateVersion = "25.11";
 
  #Git Options
  programs.git = 
