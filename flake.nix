@@ -37,6 +37,7 @@
 		      inputs.agenix.packages.${system}.default 
 		      pkgs.neovim
 		      pkgs.git
+ 		      pkgs.libnotify
 		     ];
 	  shellHook = ''
 		      echo "You are in NixOS dev mode"
