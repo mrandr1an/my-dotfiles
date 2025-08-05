@@ -54,6 +54,7 @@ home.file.".config/mako/".source  = ../../../dotfiles/mako;
    pkgs.ansible_2_17
    pkgs.walker
    pkgs.bluez
+   pkgs.sioyek
  ];
 
 }
