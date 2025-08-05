@@ -36,7 +36,6 @@
 #home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
-home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
   
  #Home Packages
  home.packages = with pkgs;
