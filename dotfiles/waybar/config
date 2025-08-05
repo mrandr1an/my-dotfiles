@@ -2,7 +2,7 @@
   "layer": "top",
   "modules-left": ["sway/workspaces", "battery", "clock"],
   "modules-center": [],
-  "modules-right": ["network", "pulseaudio","custom/volume"],
+  "modules-right": ["network","custom/volume"],
 
   "clock": {
     "format": "{:%Y-%m-%d %H:%M:%S}"
@@ -14,10 +14,6 @@
 
   "network": {
     "interface": "wlan0"  // Change to your network interface
-  },
-
-  "pulseaudio": {
-    "format": "{volume}%"
   },
 
   "sway/workspaces": {
