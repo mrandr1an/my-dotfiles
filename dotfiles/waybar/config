@@ -1,5 +1,6 @@
 {
   "layer": "top",
+  "position: "left",
   "modules-left": ["sway/workspaces", "battery", "clock"],
   "modules-center": [],
   "modules-right": ["network", "pulseaudio"],
@@ -23,5 +24,6 @@
   "sway/workspaces": {
     "format": "{name}"
   }
-}
+
+
 
