@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "position: "left",
+  "position": "left",
   "modules-left": ["sway/workspaces", "battery", "clock"],
   "modules-center": [],
   "modules-right": ["network", "pulseaudio"],
