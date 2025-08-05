@@ -17,5 +17,7 @@
   };
 
   services.xserver.libinput.enable = true;
+  
+  services.blueman.enable = true;
 }
 

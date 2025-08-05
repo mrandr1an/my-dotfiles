@@ -15,5 +15,7 @@
     group = "ubridge";
     permissions = "u+rx,g+x,o+rx";
   };
+
+  hardware.bluetooth.enable = true;
 }
 

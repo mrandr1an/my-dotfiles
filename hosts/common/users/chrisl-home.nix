@@ -52,6 +52,7 @@ home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
    pkgs.bitwarden-desktop
    pkgs.ansible_2_17
    pkgs.walker
+   pkgs.bluez
  ];
 
 }
