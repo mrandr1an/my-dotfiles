@@ -1,0 +1,10 @@
+font=Fira Code 10
+background-color=#282c34
+text-color=#abb2bf
+border-size=2
+border-color=#61afef
+padding=10
+margin=10
+width=300
+icons=true
+max-icon-size=48
