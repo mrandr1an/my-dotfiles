@@ -7,7 +7,7 @@
   sddmService = import ../common/services/sddm.nix;
   niriService = import ../common/services/niri.nix;
   bitwardenService = import ../common/services/bitwarden.nix;
-  quickshellService = import ../common/services/quickshell.nix;
+  waybarService = import ../common/services/waybar.nix;
  in
 {
   imports =
