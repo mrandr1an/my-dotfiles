@@ -1,9 +1,8 @@
 {
   "layer": "top",
-  "position": "left",
-  "modules-left": ["sway/workspaces", "battery", "clock"],
+  "modules-left": ["clock", "battery"],
   "modules-center": [],
-  "modules-right": ["network", "pulseaudio"],
+  "modules-right": ["network", "bluetooth","vpn","audio"],
 
   "clock": {
     "format": "{:%Y-%m-%d %H:%M:%S}"
@@ -14,16 +13,21 @@
   },
 
   "network": {
-    "interface": "wlan0"  // Change to your network interface
+    "interface": "wlp7s0"  // Change to your network interface
   },
 
-  "pulseaudio": {
+  "bluetooth": {
+    "interface": "wlp7s0"  // Change to your network interface
+  },
+
+  "vpn": {
+    "interface": "wlp7s0"  // Change to your network interface
+  },
+
+  "audio": {
     "format": "{volume}%"
   },
 
-  "sway/workspaces": {
-    "format": "{name}"
-  }
 }
 
 
