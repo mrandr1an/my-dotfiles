@@ -10,6 +10,7 @@
     nerd-fonts.comic-shanns-mono
     nerd-fonts.symbols-only
     pkgs.mako
+    pkgs.quickshell
   ];
 
   programs.firefox.enable = true;
