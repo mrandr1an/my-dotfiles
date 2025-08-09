@@ -2,8 +2,6 @@
   description = "My first flake";
 
   inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
         home-manager = {
           url = "github:nix-community/home-manager/release-25.05";
 	  inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +15,13 @@
         flake-parts = {
  	 url = "github:hercules-ci/flake-parts";
 	};
+	
+ 	emacs-overlay = {
+	 url = "github:nix-community/emacs-overlay/da2f552d133497abd434006e0cae996c0a282394";
+	};
+
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+	nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
   };
 
   outputs = inputs@{self,flake-parts,...}:
