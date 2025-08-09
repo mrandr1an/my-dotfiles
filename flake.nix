@@ -36,12 +36,14 @@
      systems = [ "x86_64-linux" ];
 
      perSystem = {config,pkgs,inputs',self',system,...}: {
-      nixpkgs = {
-	 overlays = [    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-    })) ];
-       };
- 
+
+  	_module.args.pkgs = import inputs.nixpkgs {
+    	  inherit system;
+    	    overlays = [
+			emacs-overlay.overlay.default
+    		       ]; 
+	};
+
       devShells.nix = pkgs.mkShell {
           packages = [ 
 		      inputs.agenix.packages.${system}.default 

@@ -2,6 +2,7 @@
  let
   sddmService = import ../common/services/sddm.nix;
   niriService = import ../common/services/niri.nix;
+  emacsService = import ../common/services/emacs.nix;
   bitwardenService = import ../common/services/bitwarden.nix;
   waybarService = import ../common/services/waybar.nix;
  in
@@ -15,6 +16,7 @@
       niriService
       bitwardenService
       waybarService
+      emacsService
       # Include Host Specific Services
       ./network.nix
       ./locale.nix
