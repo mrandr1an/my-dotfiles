@@ -21,10 +21,9 @@
 	};
 
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-	nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
   };
 
-  outputs = inputs@{self,flake-parts,...}:
+  outputs = inputs@{self,flake-parts,emacs-overlay, ...}:
    flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
    {
      imports = [
@@ -37,6 +36,10 @@
      systems = [ "x86_64-linux" ];
 
      perSystem = {config,pkgs,inputs',self',system,...}: {
+      nixpkgs = {
+	overlays = [ emacs-overlay.overlay];
+      };
+ 
       devShells.nix = pkgs.mkShell {
           packages = [ 
 		      inputs.agenix.packages.${system}.default 
