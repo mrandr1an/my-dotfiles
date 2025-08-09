@@ -37,8 +37,10 @@
 
      perSystem = {config,pkgs,inputs',self',system,...}: {
       nixpkgs = {
-	overlays = [ emacs-overlay.overlay];
-      };
+	 overlays = [    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    })) ];
+       };
  
       devShells.nix = pkgs.mkShell {
           packages = [ 
