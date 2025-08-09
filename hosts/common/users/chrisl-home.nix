@@ -37,7 +37,6 @@
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
 home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
-home.file.".config/mako/".source  = ../../../dotfiles/mako;
 home.file.".config/quickshell/".source  = ../../../dotfiles/quickshell;
   
  #Home Packages
