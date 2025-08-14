@@ -27,11 +27,16 @@
    flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
    {
      imports = [
+		 inputs.flake-parts.flakeModules.nixpkgs
 		./hosts/workstation
 		./hosts/laptop
     	       ];
 
      flake = {};
+     
+     nixpkgs = {
+      overlays = [ inputs.emacs-overlay.overlays.default ];
+     };
 
      systems = [ "x86_64-linux" ];
 
@@ -40,8 +45,8 @@
   	_module.args.pkgs = import inputs.nixpkgs {
     	  inherit system;
     	    overlays = [
-			emacs-overlay.overlay.default
-    		       ]; 
+    		         inputs.emacs-overlay.overlay
+		       ]; 
 	};
 
       devShells.nix = pkgs.mkShell {
