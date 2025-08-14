@@ -4,7 +4,7 @@ let
   #   pkgs.emacs         (GTK)
   #   pkgs.emacsPgtk     (PGTK)
   #   pkgs.emacs-unstable (from emacs-overlay, if you wired it)
-  baseEmacs = pkgs.emacs;
+  baseEmacs = pkgs.emacs-unstable;
 
   emacsPkgs = pkgs.emacsPackagesFor baseEmacs;
 in
