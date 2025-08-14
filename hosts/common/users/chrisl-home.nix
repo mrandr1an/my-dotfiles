@@ -18,21 +18,11 @@
    };
  }; 
 
- #Emacs Options
- programs.emacs = {
-  enable = true;
-  package = pkgs.emacs;
- };
-
- services.emacs = {
-  enable = true;
-  package = pkgs.emacs;
- };
-
  services.syncthing = {
   enable = true;
  };
  
+
 #home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
