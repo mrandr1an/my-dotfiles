@@ -21,9 +21,45 @@
  services.syncthing = {
   enable = true;
  };
- 
 
-#home.file.".emacs.d".source = ../../../dotfiles/my-emacs;
+services.emacs = {
+ enable = true;
+ client.enable = true;
+ socketActivation.enable = true;
+ defaultEditor = true;
+ startWithUserSession = true;
+};
+
+ programs.emacs =
+    let
+      emacsConfigFile = ../../..dotfiles/my-emacs;
+      parse = pkgs.callPackage (flake.inputs.emacs-overlay + /parse.nix) { };
+    in
+    {
+      enable = true;
+      package = pkgs.emacs-pgtk;
+      extraPackages =
+        epkgs:
+        builtins.map (name: builtins.getAttr name epkgs) (
+          parse.parsePackagesFromUsePackage {
+            alwaysEnsure = true;
+            configText = builtins.readFile emacsConfigFile;
+          }
+        )
+        ++ [
+          (epkgs.treesit-grammars.with-grammars (
+            grammars: with grammars; [
+              # keep-sorted start
+              tree-sitter-bash
+              tree-sitter-typst
+              # keep-sorted end
+            ]
+          ))
+        ];
+      extraConfig = ''
+        (load "${emacsConfigFile}")
+	''
+     } 
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
 home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
@@ -45,7 +81,6 @@ home.file.".config/quickshell/".source  = ../../../dotfiles/quickshell;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
-   pkgs.emacs-gtk   
  ];
 
 }
