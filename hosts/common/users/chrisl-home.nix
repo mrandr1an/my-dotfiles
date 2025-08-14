@@ -2,11 +2,11 @@
 
 {
 
- home.username = "chrisl";
- home.homeDirectory = "/home/chrisl";
- home.stateVersion = "25.05";
+home.username = "chrisl";
+home.homeDirectory = "/home/chrisl";
+home.stateVersion = "25.05";
 
- #Git Options
+#Git Options
 programs.git = {
    enable = true;
    userName = "mrandr1an";
@@ -29,12 +29,18 @@ services.emacs = {
  startWithUserSession = true;
 };
 
+pkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    }))
+  ];
+
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
 home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
 home.file.".config/quickshell/".source  = ../../../dotfiles/quickshell;
   
- #Home Packages
- home.packages = with pkgs;
+#Home Packages
+home.packages = with pkgs;
  [
    gns3-gui   
    gns3-server
