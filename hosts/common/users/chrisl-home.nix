@@ -49,7 +49,7 @@ home.file.".config/quickshell/".source  = ../../../dotfiles/quickshell;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
-   pkgs.emacs
+   pkgs.emacs-pgtk
  ];
 
 }
