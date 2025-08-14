@@ -58,8 +58,8 @@ services.emacs = {
         ];
       extraConfig = ''
         (load "${emacsConfigFile}")
-	''
-     } 
+	'';
+     }; 
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
 home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
