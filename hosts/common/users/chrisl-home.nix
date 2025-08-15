@@ -67,10 +67,9 @@ home.packages = with pkgs;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
-   (pkgs.emacsWithPackagesFromUsePackage {
-      package = pkgs.emacsGit;  # replace with pkgs.emacsPgtk, or another version if desired.
+   (pkgsEmacs.emacsWithPackagesFromUsePackage {
+      package = pkgsEmacs.emacs-unstable-pgtk;  # replace with pkgs.emacsPgtk, or another version if desired.
       config = ../../../dotfiles/emacs;
-
       extraEmacsPackages = epkgs: [
         epkgs.use-package
       ];
