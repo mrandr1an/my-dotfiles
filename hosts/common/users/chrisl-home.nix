@@ -55,7 +55,10 @@ programs.emacs = {
 home.file.".config/niri/".source = ../../../dotfiles/niri;
 home.file.".config/waybar/".source = ../../../dotfiles/waybar;
 home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
-home.file.".config/.emacs.d/".source = ../../../dotfiles/emacs;
+home.file.".emacs.d" = {
+ source = config.lib.file.mkOutOfStoreSymlink /home/chrisl/.dotfiles/dotfiles/emacs; 
+ force = true;
+};
   
 #Home Packages
 home.packages = with pkgs;
