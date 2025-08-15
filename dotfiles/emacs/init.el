@@ -171,8 +171,5 @@
 (customize-save-variable 'custom-file  (expand-file-name "custom.el" user-emacs-directory))
 (use-package nix-mode
 :ensure t
-:hook
-(nix-mode . lsp-bridge-mode) ;; So that envrc mode will work
-:mode "\\.nix\\'"
 )
 ;;; init.el ends here
