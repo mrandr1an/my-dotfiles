@@ -72,7 +72,7 @@ home.packages = with pkgs;
       config = ../../../dotfiles/emacs;
 
       extraEmacsPackages = epkgs: [
-        epkgs.use-package;
+        epkgs.use-package
       ];
 
     })
