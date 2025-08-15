@@ -173,5 +173,6 @@
 :ensure t
 :hook
 (nix-mode . lsp-bridge-mode) ;; So that envrc mode will work
+:mode "\\.nix\\'"
 )
 ;;; init.el ends here
