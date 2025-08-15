@@ -1,5 +1,17 @@
 {config, pkgs, ...} :
+let 
+emacsOverlay = 
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      sha256 = "sha256-+B/GngvxzeLxe5JXuJkXNc3k77jLiyb0p3rwvu5hLPA=";
+    }));
 
+pkgsEmacs = import pkgs.path {
+ system = pkgs.system;
+ overlays = [ emacsOverlay ];
+ config = pkgs.config;
+};
+in
 {
 
 home.username = "chrisl";
@@ -23,17 +35,17 @@ services.syncthing = {
 
 services.emacs = {
  enable = true;
+ package = pkgsEmacs.emacs-unstable-pgtk;
  client.enable = true;
  socketActivation.enable = true;
  defaultEditor = true;
  startWithUserSession = true;
 };
 
-pkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-    }))
-  ];
+programs.emacs = {
+  enable = true;                                 
+  package = pkgsEmacs.emacs-unstable-pgtk;
+};
 
 home.file.".config/niri/".source  = ../../../dotfiles/niri;
 home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
@@ -55,7 +67,15 @@ home.packages = with pkgs;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
-   pkgs.emacs-pgtk
+   (pkgs.emacsWithPackagesFromUsePackage {
+      package = pkgs.emacsGit;  # replace with pkgs.emacsPgtk, or another version if desired.
+      config = ../../../dotfiles/emacs;
+
+      extraEmacsPackages = epkgs: [
+        epkgs.use-package;
+      ];
+
+    })
  ];
 
 }
