@@ -68,12 +68,11 @@ home.packages = with pkgs;
    pkgs.bluez
    pkgs.sioyek
    (pkgsEmacs.emacsWithPackagesFromUsePackage {
-      package = pkgsEmacs.emacs-unstable-pgtk;  # replace with pkgs.emacsPgtk, or another version if desired.
-      config = ../../../dotfiles/emacs;
+      package = pkgsEmacs.emacs-unstable-pgtk;
+      config = ../../../dotfiles/emacs/init.el;
       extraEmacsPackages = epkgs: [
         epkgs.use-package
       ];
-
     })
  ];
 
