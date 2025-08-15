@@ -11,6 +11,12 @@ pkgsEmacs = import pkgs.path {
  overlays = [ emacsOverlay ];
  config = pkgs.config;
 };
+
+myEmacs = pkgsEmacs.emacsWithPackagesFromUsePackage {
+ package = pkgsEmacs.emacs-unstable-pgtk;
+ config = builtins.readFile ../../../dotfiles/emacs/init.el;
+ extraEmacsPackages = epkgs: [ epkgs.use-package ];
+};
 in
 {
 
@@ -23,7 +29,6 @@ programs.git = {
    enable = true;
    userName = "mrandr1an";
    userEmail = "krackedissad@gmail.com";
-
    extraConfig = {
 	init.defaultBranch = "main";
    };
@@ -35,7 +40,7 @@ services.syncthing = {
 
 services.emacs = {
  enable = true;
- package = pkgsEmacs.emacs-unstable-pgtk;
+ package = myEmacs;
  client.enable = true;
  socketActivation.enable = true;
  defaultEditor = true;
@@ -44,12 +49,13 @@ services.emacs = {
 
 programs.emacs = {
   enable = true;                                 
-  package = pkgsEmacs.emacs-unstable-pgtk;
+  package = myEmacs;
 };
 
-home.file.".config/niri/".source  = ../../../dotfiles/niri;
-home.file.".config/waybar/".source  = ../../../dotfiles/waybar;
-home.file.".config/quickshell/".source  = ../../../dotfiles/quickshell;
+home.file.".config/niri/".source = ../../../dotfiles/niri;
+home.file.".config/waybar/".source = ../../../dotfiles/waybar;
+home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
+home.file.".config/.emacs.d/".source = ../../../dotfiles/emacs;
   
 #Home Packages
 home.packages = with pkgs;
@@ -67,13 +73,5 @@ home.packages = with pkgs;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
-   (pkgsEmacs.emacsWithPackagesFromUsePackage {
-      package = pkgsEmacs.emacs-unstable-pgtk;
-      config = ../../../dotfiles/emacs/init.el;
-      extraEmacsPackages = epkgs: [
-        epkgs.use-package
-      ];
-    })
  ];
-
 }
