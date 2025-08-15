@@ -13,7 +13,7 @@ pkgsEmacs = import pkgs.path {
 myEmacs = pkgsEmacs.emacsWithPackagesFromUsePackage {
  package = pkgsEmacs.emacs-unstable-pgtk;
  config = builtins.readFile ../../../dotfiles/emacs/init.el;
- extraEmacsPackages = epkgs: [ epkgs.use-package ];
+ extraEmacsPackages = epkgs: [ epkgs.use-package epkgs.nix-mode ];
 };
 in
 {
