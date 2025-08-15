@@ -173,18 +173,6 @@
 :after lsp-mode
 :ensure t
 :hook
-(nix-mode . lsp-deferred) ;; So that envrc mode will work
-:custom
-(lsp-disabled-clients '((nix-mode . nix-nil))) ;; Disable nil so that nixd will be used as lsp-server
-:config
-(setq lsp-nix-nixd-server-path "nixd"
-      lsp-nix-nixd-formatting-command [ "nixfmt" ]
-      lsp-nix-nixd-nixpkgs-expr "import <nixpkgs> { }"
-      lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/nb/nixos\").nixosConfigurations.mnd.options"
-      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/nb/nixos\").homeConfigurations.\"nb@mnd\".options"))
-
-(add-hook! 'nix-mode-hook
-         ;; enable autocompletion with company
-         (setq company-idle-delay 0.1))
-
+(nix-mode . lsp-bridge-mode) ;; So that envrc mode will work
+)
 ;;; init.el ends here
