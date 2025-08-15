@@ -1,9 +1,7 @@
 {
   description = "My first flake";
-
   inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
         home-manager = {
           url = "github:nix-community/home-manager/release-25.05";
 	  inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +26,6 @@
     	       ];
 
      flake = {};
-
      systems = [ "x86_64-linux" ];
 
      perSystem = {config,pkgs,inputs',self',system,...}: {
@@ -38,7 +35,7 @@
 		      pkgs.neovim
 		      pkgs.git
  		      pkgs.libnotify
-		     ];
+		      ];
 	  shellHook = ''
 		      echo "You are in NixOS dev mode"
 	  	      '';

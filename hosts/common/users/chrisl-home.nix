@@ -5,13 +5,11 @@ emacsOverlay =
       url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
       sha256 = "sha256-+B/GngvxzeLxe5JXuJkXNc3k77jLiyb0p3rwvu5hLPA=";
     }));
-
 pkgsEmacs = import pkgs.path {
  system = pkgs.system;
  overlays = [ emacsOverlay ];
  config = pkgs.config;
 };
-
 myEmacs = pkgsEmacs.emacsWithPackagesFromUsePackage {
  package = pkgsEmacs.emacs-unstable-pgtk;
  config = builtins.readFile ../../../dotfiles/emacs/init.el;
