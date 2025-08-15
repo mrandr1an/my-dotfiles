@@ -167,9 +167,6 @@
 ;;LLMs
 (require 'llms)
 
-(use-package nix-mode
- :ensure t
-)
 ;;Custom file
 (customize-save-variable 'custom-file  (expand-file-name "custom.el" user-emacs-directory))
 
