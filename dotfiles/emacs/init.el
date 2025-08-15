@@ -169,7 +169,5 @@
 
 ;;Custom file
 (customize-save-variable 'custom-file  (expand-file-name "custom.el" user-emacs-directory))
-(use-package nix-mode
-:ensure t
-)
+
 ;;; init.el ends here
