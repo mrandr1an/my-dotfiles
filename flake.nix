@@ -40,6 +40,19 @@
 		      echo "You are in NixOS dev mode"
 	  	      '';
         };
+      devShells.rust = pkgs.mkShell {
+        packages = with pkgs; [
+            rustc
+            cargo
+            rust-analyzer     
+            clippy
+            rustfmt
+            pkg-config        
+            openssl.dev
+            cmake
+            clang 
+        ];
+      };
      };
    });	
 }

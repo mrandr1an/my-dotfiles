@@ -55,5 +55,8 @@
 (core/enable-feature "autocomplete" 'autocomplete)
 (core/enable-feature "notetaking" 'notetaking)
 
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
+
 (provide 'init)
 ;;; init.el ends here
