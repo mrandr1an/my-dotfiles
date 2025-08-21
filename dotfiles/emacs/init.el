@@ -53,6 +53,7 @@
 (core/enable-feature "programmer" 'programmer)
 (core/enable-feature "lsp" 'lsp)
 (core/enable-feature "autocomplete" 'autocomplete)
+(core/enable-feature "notetaking" 'notetaking)
 
 (provide 'init)
 ;;; init.el ends here
