@@ -52,7 +52,7 @@
 (core/enable-feature "modular-editing" 'vim-motions)
 (core/enable-feature "programmer" 'programmer)
 (core/enable-feature "lsp" 'lsp)
-(core/enable-feature "autocomplete" 'lsp)
+(core/enable-feature "autocomplete" 'autocomplete)
 
 (provide 'init)
 ;;; init.el ends here
