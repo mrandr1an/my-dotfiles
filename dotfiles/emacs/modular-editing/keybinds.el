@@ -9,5 +9,5 @@
 )
 (elpaca-wait)
 
-(provide 'keybinding-manager)
-;;; general.el ends here
+(provide 'keybinds)
+;;; keybinds.el ends here
