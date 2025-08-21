@@ -11,9 +11,6 @@
     nerd-fonts.symbols-only
     pkgs.quickshell
     pkgs.nixd
-   (python3.withPackages (ps: with ps; [
-    epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
-   ]))
   ];
 
   programs.firefox.enable = true;
