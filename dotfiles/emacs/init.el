@@ -18,7 +18,7 @@
        (default-directory repo))
   (add-to-list 'load-path (if (file-exists-p build) build repo))
   (unless (file-exists-p repo)
-    (make-directory repo t)
+    (make-directory repo t
     (when (<= emacs-major-version 28) (require 'subr-x))
     (condition-case-unless-debug err
         (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
@@ -50,8 +50,10 @@
 
 (core/enable-feature "modular-editing" 'keybinds)
 (core/enable-feature "modular-editing" 'vim-motions)
+(core/enable-feature "autocomplete" 'autocomplete)
 (core/enable-feature "programmer" 'programmer)
 (core/enable-feature "lsp" 'lsp)
+(core/enable-feature "notetaking" 'notetaking)
 
 (provide 'init)
 ;;; init.el ends here
