@@ -11,9 +11,14 @@ pkgsEmacs = import pkgs.path {
  config = pkgs.config;
 };
 myEmacs = pkgsEmacs.emacsWithPackagesFromUsePackage {
- package = pkgsEmacs.emacs-unstable-pgtk;
+  package = pkgsEmacs.emacs-unstable-pgtk.override {
+    withTreesitter = true;
+  };
  config = builtins.readFile ../../../dotfiles/emacs/init.el;
- extraEmacsPackages = epkgs: [ epkgs.use-package ];
+ extraEmacsPackages = epkgs: [
+   epkgs.use-package
+   epkgs.treesit-grammars.with-all-grammars
+ ];
 };
 in
 {
