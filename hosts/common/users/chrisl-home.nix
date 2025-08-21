@@ -12,7 +12,7 @@ pkgsEmacs = import pkgs.path {
 };
 myEmacs = pkgsEmacs.emacsWithPackagesFromUsePackage {
   package = pkgsEmacs.emacs-unstable-pgtk.override {
-    withTreesitter = true;
+    withTreeSitter = true;
   };
  config = builtins.readFile ../../../dotfiles/emacs/init.el;
  extraEmacsPackages = epkgs: [
