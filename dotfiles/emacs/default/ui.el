@@ -12,6 +12,8 @@
  (setq scroll-step 1)
  (setq scroll-margin 1)
  (setq scroll-conservatively 9999)
+ ;;Fonts
+ (set-face-attribute 'default nil :family "ComicShannsMonoNerdFontMono" :height 150)
 )
 
 (provide 'ui)
