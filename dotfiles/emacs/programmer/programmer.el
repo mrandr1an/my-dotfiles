@@ -30,4 +30,11 @@
   :mode "\\.nix\\'"
   :hook (nix-mode . eglot-ensure)
 )
+
+(use-package rustic
+  :ensure t
+  :config
+  (setq rustic-lsp-setup-p nil)
+)
+
 (provide 'programmer)
