@@ -27,6 +27,8 @@
   (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
   :hook
   (org-mode . corfu-mode)
+  :config
+  (global-corfu-mode)
 )
 
 (use-package dabbrev
