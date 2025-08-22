@@ -55,6 +55,9 @@ programs.emacs = {
   package = myEmacs;
 };
 
+programs.direnv.enable = true;
+programs.direnv.nix-direnv.enable = true;
+
 home.file.".config/niri/".source = ../../../dotfiles/niri;
 home.file.".config/waybar/".source = ../../../dotfiles/waybar;
 home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
