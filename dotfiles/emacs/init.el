@@ -59,5 +59,11 @@
   :ensure t
   :hook (after-init . envrc-global-mode))
 
+;; load direnv integration
+(use-package direnv
+  :ensure t
+  :config
+  (direnv-mode))   ;; global enable
+
 (provide 'init)
 ;;; init.el ends here
