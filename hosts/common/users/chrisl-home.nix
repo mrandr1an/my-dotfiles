@@ -55,8 +55,14 @@ programs.emacs = {
   package = myEmacs;
 };
 
-programs.direnv.enable = true;
-programs.direnv.nix-direnv.enable = true;
+programs = {
+  direnv = {
+    enable = true;
+    enableBashIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
+  bash.enable = true; # see note on other shells below
+};
 
 home.file.".config/niri/".source = ../../../dotfiles/niri;
 home.file.".config/waybar/".source = ../../../dotfiles/waybar;
