@@ -88,5 +88,6 @@ home.packages = with pkgs;
    pkgs.walker
    pkgs.bluez
    pkgs.sioyek
+   pkgs.texliveFull
  ];
 }
