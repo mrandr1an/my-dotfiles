@@ -14,5 +14,7 @@
          :image-converter
            ("convert -density 300 -trim -quality 90 %F %O"))))
 
+(setq org-preview-latex-default-process 'imagemagick)
+
 (provide 'settings)
 
