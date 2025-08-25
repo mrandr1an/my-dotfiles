@@ -20,6 +20,9 @@
 
 (default/ui-enable)
 
+;; Load settings that dont require packages
+(require 'settings)
+
 ;;; This should be disabled manually for bootstraping elpaca
 (setq package-enable-at-startup nil)
 
