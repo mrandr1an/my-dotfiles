@@ -89,5 +89,8 @@ home.packages = with pkgs;
    pkgs.bluez
    pkgs.sioyek
    pkgs.texliveFull
+   pkgs.times-newer-roman
+   pkgs.lmmath
+   pkgs.imagemagick
  ];
 }
