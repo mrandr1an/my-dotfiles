@@ -91,6 +91,7 @@ home.packages = with pkgs;
    pkgs.texliveFull
    pkgs.times-newer-roman
    pkgs.lmmath
+   pkgs.ghostscript
    pkgs.imagemagick
  ];
 }
