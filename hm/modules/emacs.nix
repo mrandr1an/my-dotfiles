@@ -3,17 +3,17 @@
 let
   cfg = config.apps.emacs;
   overlay =
-    lib.mkIf cfg.ovelay.enable
-    (import (builtins.fetchTarball {
+    import (builtins.fetchTarball {
       url = cfg.overlay.url;
       sha256 = cfg.overlay.sha256;
-    }));
+    });
+
   pkgsEmacs =
     if cfg.overlay.enable then
       import pkgs.path
         {
           system = pkgs.system;
-          overlays = [ overlay ];
+          overlays = lib.optionals cfg.overlay.enable [ overlay ];
           config = pkgs.config;
         }
     else
@@ -21,17 +21,17 @@ let
   baseEmacs =
     let
       base =
-        if cfg.package.variant == "pgtk" then pkgsEmacs.emacs-unstable-pgtk
-        else if cfg.package.variant == "gtk" then pkgs.Emacs.emacs-unstable
+        if cfg.package == "pgtk" then pkgsEmacs.emacs-unstable-pgtk
+        else if cfg.package == "gtk" then pkgsEmacs.emacs-unstable
         else pkgsEmacs.emacs-unstable-nox;
     in
-      base.override { withTreeSitter = cfg.package.withTreeSitter; };
+      base.override { withTreeSitter = cfg.withTreeSitter; };
 
   myEmacs =
-    if cfg.use-package.enable then
+    if cfg.usePackage.enable then
       pkgsEmacs.emacsWithPackagesFromUsePackage
       {
-        packages = baseEmacs;
+        package = baseEmacs;
         config =
           if cfg.usePackage.initFile != null then
             builtins.readFile cfg.usePackage.initFile
@@ -48,14 +48,25 @@ in
 {
   options.apps.emacs = {
     enable = lib.mkEnableOption "Emacs (package + optional daemon)";
-    url = lib.mkOption {
-      type = lib.types.str;
-      default = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-      description = "Tarball for emacs-overlay";
+
+    overlay = {
+    enable = lib.mkEnableOption "Pin Emacs Overlay via tarball fetch.";
+      url = lib.mkOption {
+        type = lib.types.str;
+        default =
+         "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+        description = "Tarball for emacs-overlay";
+      };
+      sha256 = lib.mkOption {
+          type = lib.types.str;
+          default=
+            "sha256:0z15g2wd647anw8158n5vzdcdlmdq6gagscq3zc0ni420lpw2mc8";
+          description = "Sha256 of emacs-overlay";
+      };
     };
 
     package = lib.mkOption {
-      type = lib.types.enum ["pgtk" "gtk" "nox"];
+      type = lib.types.enum [ "pgtk" "gtk" "nox" ];
       default = "pgtk";
       description = "Which Emacs build familly to use";
     };
@@ -95,8 +106,31 @@ in
       };
       force = lib.mkOption { type = lib.types.bool; default = true; };
     };
-    
-    config = lib.mkIf cfg.enable {
+
+    usePackage = {
+      enable = lib.mkEnableOption "Build via emacsWithPackagesFromUsePackage";
+      initFile = lib.mkOption {
+        type = with lib.types; nullOr path;
+        default = null;
+        description =
+          "Path to init.el to feed emacsWithPackagesFromUsePackage.";
+      };
+      initText = lib.mkOption {
+        type = with lib.types; nullOr str;
+        default = null;
+        description = "Inline init content (alternative to initFile).";
+      };
+      extraEmacsPackages = lib.mkOption {
+        # function: epkgs: [ ... ]
+        type = lib.types.raw;
+        default = null;
+        description =
+          "Function epkgs: [ pkgs ] appended in emacsWithPackagesFromUsePackage.";
+      };
+    };
+   }; 
+
+ config = lib.mkIf cfg.enable {
      programs.emacs = {
       enable = true;
       package = myEmacs;
@@ -116,6 +150,5 @@ in
       source = config.lib.file.mkOutOfStoreSymlink cfg.dotfiles.path;
       force = cfg.dotfiles.force;
     };
-  };
   };
 }

@@ -6,11 +6,9 @@
 
   apps.emacs =  {
     enable = true;
+    package = "pgtk";
     overlay.enable = true;
-    package = {
-      variant = "pgtk";
-      withTreeSitter = true; 
-    };
+    withTreeSitter = true; 
     service.enable = true;
     dotfiles.enable = true;
   };
