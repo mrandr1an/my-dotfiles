@@ -54,6 +54,7 @@
 (core/enable-feature "lsp" 'lsp)
 (core/enable-feature "autocomplete" 'autocomplete)
 (core/enable-feature "notetaking" 'notetaking)
+(core/enable-feature "." 'modeline)
 
 (use-package envrc
   :ensure t

@@ -4,7 +4,7 @@
 ;;; Code:
 
 ;;; Ensure `user-emacs-directory` is set correctly
-(setq user-emacs-directory (file-name-directory load-file-name))
+;; (setq user-emacs-directory (file-name-directory load-file-name))
 
 (add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
 
