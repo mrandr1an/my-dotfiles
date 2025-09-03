@@ -55,6 +55,14 @@
 (core/enable-feature "autocomplete" 'autocomplete)
 (core/enable-feature "notetaking" 'notetaking)
 (core/enable-feature "." 'modeline)
+(core/enable-feature "." 'theme)
+
+(use-package eat
+  :ensure t
+)
+(elpaca-wait)
+
+(core/enable-feature "nano-tools" 'nano-term)
 
 (use-package envrc
   :ensure t
@@ -67,4 +75,5 @@
   (direnv-mode))   ;; global enable
 
 (provide 'init)
+
 ;;; init.el ends here
