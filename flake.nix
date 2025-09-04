@@ -1,5 +1,5 @@
 {
-  description = "My first flake";
+  description = "Compartmentalized secure NixOS configuration for homelabing and productivity.";
 
   inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -23,38 +23,17 @@
    flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
    {
      imports = [
+       #Hosts
 		   ./hosts/workstation
-		   ./hosts/laptop 
+		   ./hosts/laptop
+       #Devshells
+       ./devshells/rust
+       ./devshells/nix
     	       ];
 
      flake = {};
+
      systems = [ "x86_64-linux" ];
 
-     perSystem = {config,pkgs,inputs',self',system,...}: {
-      devShells.nix = pkgs.mkShell {
-          packages = [ 
-		      inputs.agenix.packages.${system}.default 
-		      pkgs.neovim
-		      pkgs.git
- 		      pkgs.libnotify
-		      ];
-	  shellHook = ''
-		      echo "You are in NixOS dev mode"
-	  	      '';
-        };
-      devShells.rust = pkgs.mkShell {
-        packages = with pkgs; [
-            rustc
-            cargo
-            rust-analyzer     
-            clippy
-            rustfmt
-            pkg-config        
-            openssl.dev
-            cmake
-            clang 
-        ];
-      };
-     };
    });	
 }
