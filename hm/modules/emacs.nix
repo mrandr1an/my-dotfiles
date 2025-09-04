@@ -60,7 +60,7 @@ in
       sha256 = lib.mkOption {
           type = lib.types.str;
           default=
-            "sha256:0z15g2wd647anw8158n5vzdcdlmdq6gagscq3zc0ni420lpw2mc8";
+            "sha256:1c3kqjfvx7s616a0c2074dgbnm9gf1ch8gyijhlgvlj0xk8vd0wl";
           description = "Sha256 of emacs-overlay";
       };
     };
