@@ -2,6 +2,7 @@
 {
   imports = [
     ../../../hm/modules/emacs.nix
+    ../../../hm/modules/git.nix
   ];
 
   apps.emacs =  {
@@ -12,20 +13,19 @@
     service.enable = true;
     dotfiles.enable = true;
   };
+
+  config.dev = {
+    git = {
+      enable = true;
+      userName = "mrandr1an";
+      userEmail = "krackedissad@gmail.com";
+    };
+  };
     
 home.username = "chrisl";
 home.homeDirectory = "/home/chrisl";
 home.stateVersion = "25.05";
 
-#Git Options
-programs.git = {
-   enable = true;
-   userName = "mrandr1an";
-   userEmail = "krackedissad@gmail.com";
-   extraConfig = {
-	init.defaultBranch = "main";
-   };
- }; 
 
 services.syncthing = {
   enable = true;
