@@ -5,7 +5,7 @@
     networkmanager =
       {
         enable = true; 
-        ensureProfiles.secrets = {
+        ensureProfiles.profiles = {
           home-wifi = {
             connection = {
               id = "home-wifi";
