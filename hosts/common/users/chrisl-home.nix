@@ -5,41 +5,46 @@
     ../../../hm/modules/git.nix
   ];
 
-  apps.emacs =  {
-    enable = true;
-    package = "pgtk";
-    overlay.enable = true;
-    withTreeSitter = true; 
-    service.enable = true;
-    dotfiles.enable = true;
+  home.username = "chrisl";
+  home.homeDirectory = "/home/chrisl";
+  home.stateVersion = "25.05";
+  
+  apps = {
+    emacs =  {
+      enable = true;
+      package = "pgtk";
+      overlay.enable = true;
+      withTreeSitter = true; 
+      service.enable = true;
+      dotfiles.enable = true;
+    };
   };
 
-  config.dev = {
+  dev = {
     git = {
       enable = true;
       userName = "mrandr1an";
       userEmail = "krackedissad@gmail.com";
     };
   };
-    
-home.username = "chrisl";
-home.homeDirectory = "/home/chrisl";
-home.stateVersion = "25.05";
 
+  services = {
+    syncthing = {
+      enable = true;
+    };
+  };
 
-services.syncthing = {
-  enable = true;
- };
-
-programs = {
-  direnv = {
-    enable = true;
-    enableBashIntegration = true; # see note on other shells below
+  programs = {
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
       nix-direnv.enable = true;
     };
-  bash.enable = true; # see note on other shells below
-};
-
+    bash = {
+      enable = true;
+    };
+  };
+   
 home.file.".config/niri/".source = ../../../dotfiles/niri;
 home.file.".config/waybar/".source = ../../../dotfiles/waybar;
 home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
