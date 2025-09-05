@@ -36,7 +36,9 @@
   };
 
   desktop-environment = {
-    window-manager.niri-config.enable = true; 
+    window-manager = {
+      niri-config.enable = true;
+    };
   };
 
   programs = {
