@@ -24,8 +24,6 @@
               psk = "2299047039";
             };
           };
-          ipv4.method = "auto";
-          ipv6.method = "auto";
         };
       };
     firewall = {

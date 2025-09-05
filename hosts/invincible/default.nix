@@ -5,6 +5,7 @@
   system = "x86_64-linux";
   modules = [
       ./configuration.nix
+      inputs.niri-flake.nixosModules.niri
       inputs.agenix.nixosModules.age
       inputs.home-manager.nixosModules.home-manager
       {

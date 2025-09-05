@@ -11,4 +11,15 @@
       ./network.nix
       ./packages.nix
     ];
+
+  programs.niri.enable = true;
+
+  services.greetd.enable = true;
+  services.greetd.settings = {
+    default_session = {
+      command = "niri-session";  # provided by niri; sets up env + session properly
+      user = "chrisl";
+    };
+  };
+
 }

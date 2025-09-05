@@ -3,6 +3,7 @@
   imports = [
     ../../../hm/modules/emacs.nix
     ../../../hm/modules/git.nix
+    ../../../hm/modules/niri.nix
   ];
 
   home.username = "chrisl";
@@ -34,6 +35,10 @@
     };
   };
 
+  desktop-environment = {
+    window-manager.niri-config.enable = true; 
+  };
+
   programs = {
     direnv = {
       enable = true;
@@ -45,9 +50,8 @@
     };
   };
    
-home.file.".config/niri/".source = ../../../dotfiles/niri;
-home.file.".config/waybar/".source = ../../../dotfiles/waybar;
-home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
+  home.file.".config/waybar/".source = ../../../dotfiles/waybar;
+  home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
   
 #Home Packages
 home.packages = with pkgs;

@@ -17,23 +17,35 @@
         flake-parts = {
  	        url = "github:hercules-ci/flake-parts";
 	      };
+
+        niri-flake = {
+          url = "github:sodiboo/niri-flake";
+          inputs.nixpkgs.follows = "nixpkgs"; 
+        };
+
+        emacs-overlay = {
+          url = "github:nix-community/emacs-overlay";
+        };
   };
 
   outputs = inputs@{self,flake-parts,...}:
    flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
    {
      imports = [
+       # flake-parts' Home Manager module (exposes flake.homeConfigurations, etc.)
+       inputs.home-manager.flakeModules.home-manager
        #Hosts
 		   ./hosts/workstation
 		   ./hosts/laptop
+		   ./hosts/invincible
        #Devshells
-       ./devshells/rust
-       ./devshells/nix
+       ./devshells/rust.nix
+       ./devshells/nix.nix
     	       ];
 
      flake = {};
 
      systems = [ "x86_64-linux" ];
-
+     
    });	
 }
