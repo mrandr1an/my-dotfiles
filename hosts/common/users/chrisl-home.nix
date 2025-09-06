@@ -56,7 +56,6 @@
   };
    
   home.file.".config/waybar/".source = ../../../dotfiles/waybar;
-  home.file.".config/quickshell/".source = ../../../dotfiles/quickshell;
   
 #Home Packages
 home.packages = with pkgs;
