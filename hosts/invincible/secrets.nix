@@ -14,4 +14,10 @@
     mode = "0400";
     path = "/home/chrisl/.ssh/id_github_workstation.pub";
   };
+
+  age.secrets.email_password = {
+    file = ../../secrets/email_password.age;
+    owner = "chrisl";
+    mode = "0400";
+  };
 }

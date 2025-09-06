@@ -7,5 +7,5 @@ in
   "id_github_laptop_pub.age".publicKeys = [ laptop_key ];
   "id_github_workstation.age".publicKeys = [ workstation_key ];
   "id_github_workstation_pub.age".publicKeys = [ workstation_key ];
+  "email_password.age".publicKeys = [ laptop_key ];
 }
-
