@@ -37,7 +37,10 @@
 
   desktop-environment = {
     window-manager = {
-      niri-config.enable = true;
+      niri-config = {
+        enable = true;
+        src = builtins.readFile ../../../dotfiles/niri/config.kdl;
+      };
     };
   };
 
