@@ -1,4 +1,4 @@
-# Defines .#rust
+#devshell/rust.nix
 { ... }:
 {
   perSystem = { pkgs, ... }: {
@@ -14,7 +14,7 @@
         cmake
         clang
       ];
-      shellHook = ''echo You are now in Rust dev mode.'';
+      shellHook = ''echo "You are now in Rust dev mode."'';
     };
   };
 }

@@ -1,3 +1,4 @@
+#devshell/nix.nix
 { inputs, ... } :
 {
   perSystem = {pkgs, system, inputs', ...} : {
@@ -8,7 +9,7 @@
         pkgs.git
         pkgs.libnotify
       ];
-      shellHook = ''echo You are now on NixOS dev shell for this flake.'';
+      shellHook = ''echo "You are now on NixOS dev shell for this flake."'';
     };
   };
 }
