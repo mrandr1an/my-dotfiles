@@ -1,111 +1,179 @@
 #hm/modules/email.nix
-{config,lib,pkgs,...} :
+{ config, pkgs,lib, ... }:
 let
- cfg = config.apps.email;
+  cfg = config.services.email;
+  imapHost = "imap.hostinger.com";
+  smtpHost = "smtp.hostinger.com";
+  mailPoll = pkgs.writeShellApplication {
+    name = "mail-poll";
+    runtimeInputs = with pkgs; [ isync mu libnotify coreutils gnugrep ];
+    text = ''
+        set -euo pipefail
+        STATE_HOME="$(printenv XDG_STATE_HOME 2>/dev/null || true)"
+        if [ -z "$STATE_HOME" ]; then
+           STATE_HOME="$HOME/.local/state"
+        fi
+        STATE_DIR="$STATE_HOME/mail-poll"
+        TS_FILE="$STATE_DIR/last-ts"
+        mkdir -p "$STATE_DIR"
+
+        # 1) sync
+        mbsync -a
+
+        # 2) init mu once (remembers maildir & personal address)
+        if ! mu info >/dev/null 2>&1; then
+          mu init --maildir="/home/chrisl/Maildir/Mail/kracked.tech" --my-address="${cfg.address}"
+        fi
+
+        # 3) index (incremental after first run)
+        mu index --quiet
+
+        # 4) compute "since" watermark
+        if [ ! -s "$TS_FILE" ]; then
+          date -d '5 minutes ago' +%s > "$TS_FILE"
+        fi
+
+        # 5) find new unread mail since last run; ignore Trash/Spam
+        NEW=$(
+          mu find 'flag:unread AND NOT maildir:/Trash AND NOT maildir:/Spam' \
+            --fields 'd f s' --sortfield=date --reverse || true
+        )
+        count=$(printf '%s\n' "$NEW" | grep -c . || true)
+
+        if [ "$count" -gt 0 ]; then
+          summary="$count new email$([ "$count" -gt 1 ] && printf 's')"
+          body=$(printf '%s\n' "$NEW" | head -n 5)
+          notify-send -a mu "$summary" "$body"
+        fi
+
+        # 6) advance watermark
+        date +%s > "$TS_FILE"
+    '';
+  };
 in
 {
-  options.apps.email =
-  {
-    enable = lib.mkEnableOption "Email (send + read)";
+  options.services.email = {
+    enable = lib.mkEnableOption "Email Service.";
 
-    syncer = lib.mkOption {
-      type = lib.types.enum [ "mbsync" ];
-      default = "mbsync";
-      description = "Package to pull/push mail via IMAP.";
-    };
-
-    sender = lib.mkOption {
-      type = lib.types.enum [ "msmtp" ];
-      default = "msmtp";
-      description = "Package to actually send mail.";
-    };
-
-    indexer = lib.mkOption {
-      type = lib.types.enum [ "notmuch" "mu" ];
-      default = "mu";
-      description = "Mail indexer.";
-    };
-
-    client = lib.mkOption {
-      type = lib.types.enum [ "emacs" "thunderbird" ];
-      default = "emacs";
-      description = "Mail Client.";
-    };
-
-    account = lib.mkOption {
-      description = "Single account parameters.";
-      type = lib.types.submodule
-        {
-          address = lib.mkOption {
-            type = lib.types.str;
-            example = "your@domain.tld";
-          };
-
-          userName = lib.mkOption {
-            type = lib.types.str;
-            example = "Your Name";
-          };
-
-          realName = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
-            default = null;
-          };
-        };
-    };
-
-    imap = lib.mkOption {
-      type = lib.types.submodule {
-        host = lib.mkOption { type = lib.types.str; };
-        tls = lib.mkOption { type = lib.types.bool; default = true;};
-        port = lib.mkOption { type = lib.types.int; default = 993;};
-      };
-    };
-
-    smtp = lib.mkOption {
-      type = lib.types.submodule {
-        host = lib.mkOption { type = lib.types.str; };
-        tls = lib.mkOption { type = lib.types.bool; default = true;};
-        port = lib.mkOption { type = lib.types.int; default = 465;};
-      };
-    };
-
-    mailDirName = lib.mkOption {
+    address = lib.mkOption {
       type = lib.types.str;
-      default = "hostinger";
-      description = "Subdirectory under maildirBase used for this account.";
+      default = "cliourtas@kracked.tech";
+      description = "Primary email address (also used as username by default).)";
     };
 
-    mailDirBase = lib.mkOption {
+    userName = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
-      default = null; # defaults to ~/Mail at evaluation time
+      default = null; #falls back to address
+      description = "IMAP/SMTP login username. Defaults to address when null.";
     };
 
-    passwordFile = lib.mkOption {
-       type = lib.types.nullOr lib.types.path;
-       default = null;
-       description =
-         "Path to secret file (agenix). Used to build a passwordCommand.";
+    realName = lib.mkOption {
+      type = lib.types.str;
+      default = "Chris Liourtas";
+      description = "Display name for outgoing mail.";
+    };
+
+    maildirPath = lib.mkOption {
+      type = lib.types.str;
+      default = "Mail/kracked.tech";
+      description = "Maildir path relative to $HOME.";
+    };
+
+    syncFrequency = lib.mkOption {
+      type = lib.types.str;
+      default = "*:0/5"; # every 5 minutes
+      description = "Systemd OnCalendar spec for periodic mbsync.";
     };
 
     passwordCommand = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
+      type = lib.types.str;
+      default = "cat /run/agenix/email_password";
+      description = "Command that prints the mailbox password.";
     };
 
     folders = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = {
-        inbox = "INBOX";
-        sent = "sent";
-        drafts = "drafts";
-        trash = "trash";
-        archive = "archive";
-        junk = "junk";
+        inbox  = "Inbox";
+        drafts = "Drafts";
+        sent   = "Sent";
+        trash  = "Trash";
       };
+      description = "Server folder names used for special folders.";
+    };
+
+    accountName = lib.mkOption {
+      type = lib.types.str;
+      default = "hostinger";
+      description = "Identifier for the generated Home-Manager email account.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    
-  };
+      programs.mbsync.enable = true;
+      programs.msmtp.enable  = true;
+
+      accounts.email = {
+        accounts.${cfg.accountName} = {
+          primary   = true;
+          address   = cfg.address;
+          userName  = cfg.userName or cfg.address;
+          realName  = cfg.realName;
+          flavor    = "plain";
+
+          imap = {
+            host = imapHost;
+            port = 993;
+            tls.enable = true;       
+          };
+
+          smtp = {
+            host = smtpHost;
+            port = 587;
+            tls.enable = true;
+          };
+
+          maildir.path = cfg.maildirPath;
+
+          mbsync = {
+            enable = true;
+            create = "maildir";
+            subFolders = "Maildir++";
+          };
+
+          msmtp.enable  = true;
+
+          folders = cfg.folders;
+
+          passwordCommand = cfg.passwordCommand;
+        };
+      };
+      
+      # periodic sync
+      # services.mbsync = {
+      #  enable = true;
+      # frequency = cfg.syncFrequency;
+      # };
+
+     systemd.user.services.mail-poll = {
+      Unit.Description = "Sync mail (mbsync), index with mu, and notify on new mail";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${mailPoll}/bin/mail-poll";
+        Environment = [ "XDG_RUNTIME_DIR=%t" ];
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
+
+    # run on your existing schedule (e.g. "*:0/5")
+     systemd.user.timers.mail-poll = {
+      Unit.Description = "Periodic mail poller";
+      Timer = {
+        OnCalendar = cfg.syncFrequency;
+        Persistent = true;     # catch up after downtime
+        Unit = "mail-poll.service";
+      };
+      Install.WantedBy = [ "timers.target" ];
+    };
+    };
 }

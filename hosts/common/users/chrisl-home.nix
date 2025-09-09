@@ -4,6 +4,7 @@
     ../../../hm/modules/emacs.nix
     ../../../hm/modules/git.nix
     ../../../hm/modules/niri.nix
+    ../../../hm/modules/email.nix
   ];
 
   home.username = "chrisl";
@@ -33,12 +34,16 @@
     syncthing = {
       enable = true;
     };
+    email = {
+      enable = true;
+      userName = "cliourtas@kracked.tech";
+    };
   };
 
   desktop-environment = {
     window-manager = {
       niri-config = {
-        enable = true;
+	enable = true;
         src = builtins.readFile ../../../dotfiles/niri/config.kdl;
       };
     };
@@ -53,10 +58,13 @@
     bash = {
       enable = true;
     };
+    waybar = {
+      enable = true;
+    };
   };
-   
+
   home.file.".config/waybar/".source = ../../../dotfiles/waybar;
-  
+ 
 #Home Packages
 home.packages = with pkgs;
  [
@@ -78,5 +86,7 @@ home.packages = with pkgs;
    pkgs.lmmath
    pkgs.ghostscript
    pkgs.imagemagick
+   pkgs.mako
+   pkgs.mu
  ];
 }
