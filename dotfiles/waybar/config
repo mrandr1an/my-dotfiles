@@ -1,15 +1,19 @@
 {
   "layer": "top",
   "spacing": "4",
+  "output" : ["HDMI-A-1"],
 
   "modules-center": ["clock"],
   "modules-right": ["battery"],
 
   "clock": {
-    "format": "{:%Y-%m-%d %H:%M:%S}"
+    "format": "{:%Y-%m-%d %H:%M}"
+    "interval": 60
   },
 
   "battery": {
     "format": "{capacity}%"
-  }, 
+    "interval": 60
+  },
+
 }
