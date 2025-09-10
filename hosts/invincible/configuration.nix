@@ -13,7 +13,7 @@
     ];
 
   programs.niri.enable = true; 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   services.greetd.enable = true;
   services.greetd.settings = {
