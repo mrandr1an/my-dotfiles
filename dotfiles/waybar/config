@@ -8,12 +8,12 @@
 
   "clock": {
     "format": "{:%Y-%m-%d %H:%M}"
-    "interval": 60
+    "interval": 60,
   },
 
   "battery": {
-    "format": "{capacity}%"
-    "interval": 60
+    "format": "{capacity}%",
+    "interval": 60,
   },
 
 }
