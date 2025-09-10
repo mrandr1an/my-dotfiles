@@ -1,4 +1,11 @@
-{ config, pkgs, ... }: {
+{config,pkgs,...} :
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+      ./locale.nix
+    ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -16,6 +23,18 @@
     permissions = "u+rx,g+x,o+rx";
   };
 
-  hardware.bluetooth.enable = true;
-}
+  services = {
+    openssh = {
+      enable = true;
+    };
 
+    syncthing = {
+      enable = true;
+    };
+  };
+
+  users.users.vmuser = {
+    isNormalUser = true;
+    initialPassword = "changeme";
+  };
+}

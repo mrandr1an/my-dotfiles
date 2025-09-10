@@ -1,7 +1,6 @@
-{inputs,lib,...}: 
-
+{inputs,lib,...}:
 {
- flake.nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
+ flake.nixosConfigurations.invincible = inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   modules = [
       ./configuration.nix
@@ -11,7 +10,7 @@
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
-        home-manager.users.chrisl = import ../common/users/chrisl-home.nix;
+        home-manager.users.vmuser = import ../common/users/chrisl-home.nix;
       }
     ];
   };

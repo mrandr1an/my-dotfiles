@@ -35,9 +35,8 @@
        # flake-parts' Home Manager module (exposes flake.homeConfigurations, etc.)
        inputs.home-manager.flakeModules.home-manager
        #Hosts
-		   ./hosts/workstation
-		   ./hosts/laptop
 		   ./hosts/invincible
+		   ./hosts/syncthingVM
        #Devshells
        ./devshells/rust.nix
        ./devshells/nix.nix

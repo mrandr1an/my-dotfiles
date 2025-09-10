@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
-  time.timeZone = "America/New_York";
-
+  time.timeZone = "Europe/Athens";
+  
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "el_GR.UTF-8";
@@ -14,4 +14,3 @@
     LC_TIME = "el_GR.UTF-8";
   };
 }
-
