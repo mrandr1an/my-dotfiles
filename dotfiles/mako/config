@@ -1,10 +1,47 @@
-font=Fira Code 10
-background-color=#282c34
-text-color=#abb2bf
-border-size=2
-border-color=#61afef
-padding=10
-margin=10
-width=300
-icons=true
-max-icon-size=48
+# Layout & placement
+anchor=top-right
+layer=overlay
+width=420
+height=180
+outer-margin=0,24,24
+margin=8
+padding=12
+
+# Typography
+font=Inter 11
+
+# Colors (8-digit hex: RRGGBBAA)
+background-color=#1E1E2EE6
+text-color=#CDD6F4FF
+border-size=1
+border-color=#89B4FA66
+border-radius=12                 # rounded corners
+progress-color=over #89B4FAFF
+
+# Icons
+icons=1
+icon-location=left
+max-icon-size=44
+icon-border-radius=8
+icon-path=/usr/share/icons/Papirus-Dark:/usr/share/icons/Adwaita
+
+# Behavior
+default-timeout=7000
+group-by=app-name,summary
+text-alignment=left
+max-visible=6
+format=<b>%s</b>\n<span size="smaller">%b</span>
+
+# Urgency overrides
+[urgency=low]
+border-color=#A6ADC8AA
+default-timeout=4000
+
+[urgency=critical]
+border-color=#F38BA8FF
+background-color=#1E1E2EFF
+default-timeout=0
+
+# Optional: do-not-disturb toggle
+[mode=do-not-disturb]
+invisible=1

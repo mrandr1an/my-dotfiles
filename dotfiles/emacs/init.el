@@ -62,8 +62,6 @@
 )
 (elpaca-wait)
 
-(core/enable-feature "nano-tools" 'nano-term)
-
 (use-package envrc
   :ensure t
   :hook (after-init . envrc-global-mode))

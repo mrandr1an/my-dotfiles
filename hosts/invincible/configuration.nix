@@ -12,7 +12,8 @@
       ./packages.nix
     ];
 
-  programs.niri.enable = true;
+  programs.niri.enable = true; 
+  hardware.opengl.enable = true;
 
   services.greetd.enable = true;
   services.greetd.settings = {

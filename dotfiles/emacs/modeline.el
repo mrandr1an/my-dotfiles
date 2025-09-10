@@ -49,7 +49,8 @@
   :hook
   ((emacs-lisp-mode . (lambda () (nano-modeline my/nano-format-elisp 'header)))
    (org-mode        . (lambda () (nano-modeline my/nano-format-org   'header)))
-   (eshell-mode     . (lambda () (nano-modeline my/nano-format-eshell 'header)))))
+   (eshell-mode     . (lambda () (nano-modeline my/nano-format-eshell 'header)))
+   (prog-mode . (lambda () (nano-modeline)))))
 
 
 (provide 'modeline)

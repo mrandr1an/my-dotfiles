@@ -1,10 +1,9 @@
 {
   "layer": "top",
-
   "spacing": "4",
-  "modules-left": ["niri/workspaces", "battery", "bluetooth"],
+
   "modules-center": ["clock"],
-  "modules-right": ["network","custom/volume"],
+  "modules-right": ["battery"],
 
   "clock": {
     "format": "{:%Y-%m-%d %H:%M:%S}"
@@ -12,35 +11,5 @@
 
   "battery": {
     "format": "{capacity}%"
-  },
-
-  "network": {
-    "interface": "wlan0"  // Change to your network interface
-  },
-
-  "niri/workspaces": {
-    "format": "{name}"
-  },
-
-  "custom/volume": {
-  "exec": "~/.config/waybar/scripts/audio.sh",
-  "interval": 1,
-  "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-  "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
-  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
- },
-
- "bluetooth": {
-	"format": " {status}",
-	"format-connected": " {device_alias}",
-	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
-	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
- }
-
+  }, 
 }
-
-
