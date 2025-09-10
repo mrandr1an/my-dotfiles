@@ -64,6 +64,7 @@
   };
 
   home.file.".config/waybar/".source = ../../../dotfiles/waybar;
+  home.file.".config/mako/".source = ../../../dotfiles/mako;
  
 #Home Packages
 home.packages = with pkgs;
