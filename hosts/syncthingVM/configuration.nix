@@ -14,15 +14,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   security.rtkit.enable = true;
-
-  security.wrappers.ubridge = {
-    source = "/run/current-system/sw/bin/ubridge";
-    capabilities = "cap_net_admin,cap_net_raw=ep";
-    owner = "root";
-    group = "ubridge";
-    permissions = "u+rx,g+x,o+rx";
-  };
-
+  
   services = {
     openssh = {
       enable = true;
@@ -30,8 +22,17 @@
 
     syncthing = {
       enable = true;
+      services.syncthing.systemService = true;
+      # Keep GUI local; use SSH tunnel when you need to administer.
+      guiAddress = "127.0.0.1:8384";
+      user = "vmuser";
+      group = "users";
     };
   };
+
+  #Allow only what is needed by Syncthing
+  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
 
   users.users.vmuser = {
     isNormalUser = true;
