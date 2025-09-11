@@ -58,4 +58,9 @@
     hashedPasswordFile = config.age.secrets.vmuser_password.path;
     extraGroups = [ "wheel" ]; # gives sudo access
   };
+
+  systemd.tmpfiles.rules = [
+    # Format: z <path> <mode> <owner> <group> <age> <argument>
+    "z /var/lib/syncthing/Identities 770 syncthing syncthing - -"
+  ];
 }
