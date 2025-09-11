@@ -36,6 +36,6 @@
 
   users.users.vmuser = {
     isNormalUser = true;
-    initialPassword = "changeme";
+    hashedPassword = "changeme";
   };
 }
