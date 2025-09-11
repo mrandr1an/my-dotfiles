@@ -25,7 +25,19 @@
       systemService = true;
       # Keep GUI local; use SSH tunnel when you need to administer.
       guiAddress = "127.0.0.1:8384";
+      settings = {
+        devices = {
+          "invincible" = { id = "QPWTCNV-QN7YCKR-I2VOFE2-VJK7LOA-YUF6IGI-2N4YPGK-3XKAZOH-BU4SSAK";};
+        };
+        folders = {
+          "Documents" = {
+            path = "/home/vmuser/Documents";
+            devices = [ "invincible" ];
+          };
+        };
+      };
     };
+
   };
 
   #Allow only what is needed by Syncthing
