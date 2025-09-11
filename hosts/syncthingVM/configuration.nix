@@ -34,10 +34,13 @@
             path = "/var/lib/syncthing/Documents";
             devices = [ "invincible" ];
           };
+          "Identities" = {
+            path = "/var/lib/syncthing/Identities";
+            devices = [ "invincible" ];
+          };
         };
       };
     };
-
   };
 
   #Allow only what is needed by Syncthing

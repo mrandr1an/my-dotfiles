@@ -42,6 +42,10 @@
             path = "/home/chrisl/Documents";
             devices = [ "syncthingVM" ];
           };
+          "Identities" = { 
+            path = "/home/chrisl/.identities";
+            devices = [ "syncthingVM" ];
+          };
         };
       };
     };
