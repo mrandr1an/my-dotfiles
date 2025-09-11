@@ -31,7 +31,7 @@
         };
         folders = {
           "Documents" = {
-            path = "/home/vmuser/Documents";
+            path = "/var/lib/syncthing/Documents";
             devices = [ "invincible" ];
           };
         };
