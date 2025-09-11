@@ -3,7 +3,7 @@
 
   age.secrets.vmuser_password = {
     file = ../../secrets/vmuser_password.age;
-    owner = "chrisl";
+    owner = "vmuser";
     mode = "0400";
   };
 
