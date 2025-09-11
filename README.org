@@ -1,13 +1,49 @@
-#project
+* Usage Notes - Documentation
 
-* Dotfiles Repository
+The following is for personal usage. This obviously is not 100% safe to share
+but it should be fine, let me know if you manage to hack me 😕.
 
-** Introduction
+** Identity Keys
 
-** Workflow && Maintenance
+All services must have a syncthing daemon running that syncs identities.
+A basic syncthing configuration can look like this:
 
-** Hosts
-*** Laptop
-*** Workstation
-*** Lope
-*** Berry
+#+begin_src nix 
+syncthing = {
+    enable = true;
+    settings = {
+    devices = {
+	"device-A" = { id = "device-A-id"; };
+    };
+    folders =  {
+	"Identities" = { 
+	path = "/var/lib/syncthing/Identities";
+	devices = ["device-A"];
+	};
+    };
+    };
+};
+#+end_src
+
+*By convention all identinties are stored in /var/lib/syncthing/Identities*
+
+** Promox Services
+
+*** Syncthing
+
+Syncthing is defined as a system service under [[./hosts/syncthingVM/configuration.nix][configuration.nix]] on the [[./hosts/syncthingVM/][syncthingVM]]. Its used
+for syncing important files as a backup.
+
+| LOCAL ADDRESS | WEB-PORT | USER   | PASSWORD MANAGER | PUBLIC ADDRESS | PUBLIC KEY NAME 
+|  192.168.2.23 |     8384 | vmuser | agenix           | None (TODO)    | id_syncthingVM  
+
+**** Additional notes on usage
+
+To access the web ui open up a local port-forward via ssh:
+
+#+begin_src sh
+ssh -L 8585:127.0.0.1:8384 vmuser@192.168.2.23
+#+end_src
+
+Then you can access it in http://localhost:8585/ or whatever port you set. The web-page is only
+available locally.
