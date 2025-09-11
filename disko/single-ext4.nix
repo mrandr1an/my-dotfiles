@@ -1,5 +1,5 @@
 #disko/single-ext4.nix
-{ lib, devices, sizes ? { esp = "512MiB"; root = "100%"; }, ... }:
+{ lib, devices, sizes ? { esp = "512M"; root = "100%"; }, ... }:
 {
   disko.devices = {
     disk.main = {

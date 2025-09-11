@@ -8,7 +8,11 @@
           url = "github:nix-community/home-manager/master";
 	        inputs.nixpkgs.follows = "nixpkgs";
         };
-	
+
+	      disko = {
+          url   = "github:nix-community/disko";
+        };
+        
  	      agenix = {
           url = "github:ryantm/agenix";
           inputs.nixpkgs.follows = "nixpkgs"; 

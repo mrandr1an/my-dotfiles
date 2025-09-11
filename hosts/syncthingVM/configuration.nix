@@ -1,14 +1,17 @@
-{config,pkgs,...} :
+{config,lib,pkgs,...} :
 {
   imports =
     [
       ./hardware-configuration.nix
       ./locale.nix
       ./secrets.nix
-      ../../disko/single-ext4.nix
+      (import ../../disko/single-ext4.nix {
+      inherit lib;
+      devices = { disk = "/dev/sda"; };   # better: by-id path
+      })
     ];
 
-  devices.disk = "/dev/vda";
+  
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -45,6 +48,7 @@
     };
   };
 
+  
   #Allow only what is needed by Syncthing
   networking.firewall.allowedTCPPorts = [ 22000 ];
   networking.firewall.allowedUDPPorts = [ 22000 21027 ];

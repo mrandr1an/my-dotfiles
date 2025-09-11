@@ -5,6 +5,7 @@
   modules = [
       ./configuration.nix
       inputs.agenix.nixosModules.age
+      inputs.disko.nixosModules.disko
       inputs.home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;

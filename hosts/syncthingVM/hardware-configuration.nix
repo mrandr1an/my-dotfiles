@@ -9,18 +9,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "/dev/sda2";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/sda1";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
-
+  
   swapDevices = [ ];
  
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
