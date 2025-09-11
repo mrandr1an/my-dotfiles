@@ -27,6 +27,7 @@
       guiAddress = "127.0.0.1:8384";
       user = "vmuser";
       group = "users";
+      extraGroups = [ "wheel" ]; # gives sudo access
     };
   };
 
