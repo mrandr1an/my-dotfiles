@@ -11,12 +11,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/e210f055-fecf-468b-a7e8-31e3d34df572";
+    { device = "/dev/sda2";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/550B-7CE9";
+    { device = "/dev/sda1";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
@@ -24,4 +24,10 @@
   swapDevices = [ ];
  
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    qemu
+  ];
 }
