@@ -33,6 +33,17 @@
   services = {
     syncthing = {
       enable = true;
+      settings = {
+        devices = {
+          "syncthingVM" = { id = "X4YJML2-CW2W2II-HAP22JU-RN2F3HN-VJOF3GR-N2T47X4-W3PPHEF-WYAJNQ2"; };
+        };
+        folders =  {
+          "Documents"= {
+            path = "/home/chrisl/Documents";
+            devices = [ "syncthingVM" ];
+          };
+        };
+      };
     };
     email = {
       enable = true;
