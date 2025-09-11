@@ -22,7 +22,7 @@
 
     syncthing = {
       enable = true;
-      services.syncthing.systemService = true;
+      systemService = true;
       # Keep GUI local; use SSH tunnel when you need to administer.
       guiAddress = "127.0.0.1:8384";
       user = "vmuser";
