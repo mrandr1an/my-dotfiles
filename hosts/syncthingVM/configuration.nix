@@ -4,6 +4,7 @@
     [
       ./hardware-configuration.nix
       ./locale.nix
+      ./secrets.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -23,7 +24,6 @@
     syncthing = {
       enable = true;
       systemService = true;
-      # Keep GUI local; use SSH tunnel when you need to administer.
       guiAddress = "127.0.0.1:8384";
       settings = {
         devices = {
@@ -46,7 +46,7 @@
 
   users.users.vmuser = {
     isNormalUser = true;
-    hashedPassword = "changeme";
+    hashedPasswordFile = config.age.secrets.vmuser_password.path;
     extraGroups = [ "wheel" ]; # gives sudo access
   };
 }
