@@ -5,8 +5,10 @@
       ./hardware-configuration.nix
       ./locale.nix
       ./secrets.nix
+      ../../disko/single-ext4.nix
     ];
 
+  devices.disk = "/dev/vda";
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
