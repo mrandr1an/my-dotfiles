@@ -35,24 +35,22 @@
   outputs = inputs@{self,flake-parts,...}:
     flake-parts.lib.mkFlake { inherit inputs; } (top@{config,withSystem,moduleWithSystem,...}:
       let
-        mkSystem = ./lib/mkSystem.nix;
+        mkSystem = import ./lib/mkSystem.nix { inherit inputs; };
       in
    {
      imports = [
        # flake-parts' Home Manager module (exposes flake.homeConfigurations, etc.)
        inputs.home-manager.flakeModules.home-manager
        #Hosts
-		   #./hosts/invincible
-		   #./hosts/syncthingVM
+		   ./hosts/invincible
+		   ./hosts/syncthingVM
        #Devshells
        ./devshells/rust.nix
        ./devshells/nix.nix
     	       ];
 
-     flake.nixosConfigurations = {
-       invincible = mkSystem { system = "x86_64-linux"; hostname = "ultrasuper"; };
-     };
-
+     flake = {};
+     
      systems = [ "x86_64-linux" ];
      
    });	
