@@ -1,7 +1,7 @@
-{config,pkgs,hostname,...}:
+{config,pkgs,...}:
 {
   networking = {
-    hostName = hostname;
+    hostName = "invincible";
     networkmanager =
       {
         enable = true; 
