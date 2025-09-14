@@ -41,13 +41,29 @@
      imports = [
        # flake-parts' Home Manager module (exposes flake.homeConfigurations, etc.)
        inputs.home-manager.flakeModules.home-manager
-       #Hosts
        #Devshells
        ./devshells/rust.nix
        ./devshells/nix.nix
     	       ];
 
-     flake = {};
+     flake = {
+       nixosConfigurations = {
+         invincible = withSystem "x86_64-linux" (system:
+           mkSystem {
+             archetype = {
+               laptop =  {
+                 desktop-environment = {
+                   niri.enable = true;
+                 };
+
+                 locale = {
+                   timeZone = "Europe/Athens";
+                 };
+               };
+             };
+           });
+       };
+     };
      
      systems = [ "x86_64-linux" ];
      
