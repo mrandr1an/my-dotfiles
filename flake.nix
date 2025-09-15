@@ -51,14 +51,25 @@
          invincible = withSystem "x86_64-linux" (system:
            mkSystem {
              archetype = {
-               laptop =  {
-                 desktop-environment = {
-                   niri.enable = true;
+               laptop = {
+               system = {
+                 hostname = "ultraepicsystem";
+                 locale.timeZone = "Europe/Athens";
+               };
+
+               desktop = {
+
+                 user = {
+                   userName = "testUser";
+                   userPwd = "changeme";
                  };
 
-                 locale = {
-                   timeZone = "Europe/Athens";
+                 niri = {
+                   enable = true; 
                  };
+
+               };
+
                };
              };
            });

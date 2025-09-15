@@ -1,9 +1,8 @@
 #lib/configuration.nix
-{lib,inputs,pkgs,archetype,...}:
+{lib,archetype,...}:
 let
   inherit (lib) optionals;
   laptop = archetype.laptop or null;
-  virtual-machine = archetype.virtual-machine or null;
 in
 {
   imports =
@@ -11,31 +10,35 @@ in
     ./modules/desktop-environment.nix
     ./modules/locale.nix
     ] ++ optionals (laptop != null) [./modules/laptop-hardware.nix] ;
-
+  
   config = lib.mkMerge [
-    (lib.mkIf (laptop != null)) {
+    (lib.mkIf (laptop != null) {
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
-      networking.hostName = "testhostname";
       system.stateVersion = "25.05";
-
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-      desktop-environment = {
-        enable = true;
-        user = archetype.user;
-        niri.enable = archetype.desktop-environment.niri.enable;
-      };
+      networking.hostName = laptop.system.hostname;
 
-      locale = {
-        timeZone = archetype.locale.timeZone;
-      };
-      
-    }
+      de =
+        let
+          userName' = laptop.desktop.user.userName;
+          userPwd' = laptop.desktop.user.userPwd;
+        in
+          {
+            userName = userName';
+            userPwd = userPwd';
+            niri.enable = true;
+          };
 
-    (lib.mkIf (virtual-machine != null)) {
-      
-    }
+      locale =
+        let
+          timeZone' = laptop.system.locale.timeZone;
+        in
+          {
+            timeZone = timeZone';
+          };
+    })
     ];
 }
 
