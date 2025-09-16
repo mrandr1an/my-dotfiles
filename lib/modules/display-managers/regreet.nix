@@ -10,47 +10,53 @@ in
 
     gtkTheme = lib.mkOption {
       type = lib.types.submodule {
-        name = lib.mkOption {
-          type = lib.types.str;
-          example = "Adwaita";
-        };
+        options = {
+            name = lib.mkOption {
+            type = lib.types.str;
+            example = "Adwaita";
+            };
 
-        package = lib.mkOption {
-          type = lib.types.package;
-          example = pkgs.gnome-themes-extra;
+            package = lib.mkOption {
+            type = lib.types.package;
+            example = pkgs.gnome-themes-extra;
+            };
         };
       };
     };
 
     iconTheme = lib.mkOption {
       type = lib.types.submodule {
-        name = lib.mkOption {
-          type = lib.types.str;
-          example = "Adwaita";
-        };
+        options = {
+            name = lib.mkOption {
+            type = lib.types.str;
+            example = "Adwaita";
+            };
 
-        package = lib.mkOption {
-          type = lib.types.package;
-          example = pkgs.adwaita-icon-theme;
+            package = lib.mkOption {
+            type = lib.types.package;
+            example = pkgs.adwaita-icon-theme;
+            };
         };
       };
     };
 
     font = lib.mkOption {
       type = lib.types.submodule {
-        name = lib.mkOption {
-          type = lib.types.str;
-          example = "Cantarell";
-        };
+        options = {
+            name = lib.mkOption {
+            type = lib.types.str;
+            example = "Cantarell";
+            };
 
-        package = lib.mkOption {
-          type = lib.types.package;
-          example = pkgs.cantarell-fonts;
-        };
+            package = lib.mkOption {
+            type = lib.types.package;
+            example = pkgs.cantarell-fonts;
+            };
 
-        size = lib.mkOption {
-          type = lib.types.number;
-          example = 16;
+            size = lib.mkOption {
+            type = lib.types.number;
+            example = 16;
+            };
         };
       };
     };
