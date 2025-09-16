@@ -55,7 +55,7 @@ in
       };
     };
 
-    extraCss = {
+    extraCss = lib.mkOption {
       type = lib.types.str;
     };
 
