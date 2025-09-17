@@ -13,6 +13,7 @@ in
         options = {
             name = lib.mkOption {
             type = lib.types.str;
+            default = "Adwaita";
             example = "Adwaita";
             };
 
@@ -29,11 +30,13 @@ in
         options = {
             name = lib.mkOption {
             type = lib.types.str;
+            default = "Adwaita";
             example = "Adwaita";
             };
 
             package = lib.mkOption {
             type = lib.types.package;
+            default = pkgs.adwaita-icon-theme;
             example = pkgs.adwaita-icon-theme;
             };
         };
@@ -45,17 +48,20 @@ in
         options = {
             name = lib.mkOption {
             type = lib.types.str;
+            default = "Cantarell";
             example = "Cantarell";
             };
 
             package = lib.mkOption {
             type = lib.types.package;
             example = pkgs.cantarell-fonts;
+            default = pkgs.cantarell-fonts;
             };
 
             size = lib.mkOption {
             type = lib.types.number;
             example = 16;
+            default = 16;
             };
         };
       };
