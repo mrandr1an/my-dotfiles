@@ -53,8 +53,8 @@
              archetype = {
                laptop = {
                  desktop-environment.window-manager = "niri";
+                 user.userName = "chrisl";
                };
-               user.userName = "chrisl";
              };
            });
        };

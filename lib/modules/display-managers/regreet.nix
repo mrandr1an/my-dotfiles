@@ -80,7 +80,7 @@ in
       settings = {
         default_session = {
           command = command';
-          user = archetype.user.userName;
+          user = archetype.laptop.user.userName;
         };
       };
     };

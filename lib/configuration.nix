@@ -19,8 +19,14 @@ in
   config = lib.mkMerge [
 
     (lib.mkIf (laptop != null) {
-      desktop-environment.enable = true;
+      boot.loader.systemd-boot.enable = true;
+      boot.loader.efi.canTouchEfiVariables = true;
 
+      system.stateVersion = "25.05";
+
+      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+      desktop-environment.enable = true;
     })
 
     (lib.mkIf (virtual-machine != null) {
