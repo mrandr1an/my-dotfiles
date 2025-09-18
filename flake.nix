@@ -52,25 +52,9 @@
            mkSystem {
              archetype = {
                laptop = {
-               system = {
-                 hostname = "ultraepicsystem";
-                 locale.timeZone = "Europe/Athens";
+                 desktop-environment.window-manager = "niri";
                };
-
-               desktop = {
-
-                 user = {
-                   userName = "testUser";
-                   userPwd = "changeme";
-                 };
-
-                 niri = {
-                   enable = true; 
-                 };
-
-               };
-
-               };
+               user.userName = "chrisl";
              };
            });
        };

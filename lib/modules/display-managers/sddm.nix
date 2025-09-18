@@ -1,5 +1,5 @@
 #lib/modules/display-managers/sddm.nix
-{config,lib,pkgs}:
+{config,lib,pkgs,...}:
 let
   cfg = config.desktop.display-managers.sddm;
   sddm-astronaut = pkgs.sddm-astronaut.override {

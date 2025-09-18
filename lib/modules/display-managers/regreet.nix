@@ -1,8 +1,9 @@
 #lib/modules/display-managers/regreet.nix
-{command'}:
-{pkgs,config,lib,archetype}:
+{cmd}:
+{pkgs,config,lib,archetype,...}:
 let
 cfg = config.desktop.display-managers.regreet;
+command' = cmd;
 in
 { 
   options.desktop.display-managers.regreet= {

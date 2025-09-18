@@ -1,34 +1,27 @@
 #lib/modules/desktop-environment.nix
-{config, lib, pkgs, inputs, ...}:
+{config, lib, ...}:
 let
-  cfg = config.de;
+  cfg = config.desktop-environment;
 in
 {
-  options.de = {
-    niri.enable = lib.mkEnableOption "Niri enable.";
-    userName = lib.mkOption { type = lib.types.str; };
-    userPwd = lib.mkOption { type = lib.types.str; };
+  imports = [
+    ./window-managers/niri.nix
+  ];
+
+  options.desktop-environment = {
+    enable = lib.mkEnableOption "Enable Desktop.";
+    
+    window-manager = lib.mkOption {
+      type = lib.types.enum ["niri"]; 
+      default = "niri";
+      example = "niri";
+    }; 
   };
 
-  config = lib.mkIf cfg.niri.enable {  
-    users.users.${cfg.userName} = {
-        isNormalUser = true;
-        description = "The test user";
-        initialPassword = cfg.userPwd;
-    };
+  config = lib.mkIf cfg.enable (lib.mkMerge[
+    (lib.mkIf (cfg.window-manager == "niri"){
+      desktop.window-managers.niri.enable = true;
+    })
+  ]);
 
-    programs.niri.enable = true; 
-    hardware.graphics.enable = true;
-
-    services.greetd.enable = true;
-    services.greetd.settings = {
-      default_session = {
-        command = "niri-session";  
-        user = "chrisl";
-      };
-    };
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.backupFileExtension = "backup";
-  };
 }

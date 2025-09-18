@@ -1,15 +1,15 @@
 #lib/modules/window-managers/niri.nix
-{config,lib,archetype}:
+{config,lib,archetype,...}:
 let
   cfg = config.desktop.window-managers.niri;
 in
 {
   imports = [
-    ../display-managers/regreet.nix
+    (import ../display-managers/regreet.nix { cmd = "niri-session";})
     ../display-managers/sddm.nix
   ];
 
-  options.desktop.window-manager.niri = {
+  options.desktop.window-managers.niri = {
     enable = lib.mkEnableOption "Enable Niri as the window manager.";
  
     displayManager = lib.mkOption {
@@ -27,11 +27,16 @@ in
           };
         };
       };
+      default = {
+        theme = "default";
+        program = "regreet";
+      };
     };
 
     statusBar = lib.mkOption {
       type = lib.types.enum ["waybar"];
       example = "waybar";
+      default = "waybar";
     };
   };
 
