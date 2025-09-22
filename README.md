@@ -1,3 +1,6 @@
+[!CAUTION]
+This project is still in very early development
+
 # Usage Notes - Documentation
 
 ## Standard Behavior Protocol
@@ -85,43 +88,24 @@ optimized as QEMU guests. There are, however other differences.
 
 Describes the system with the attributes below.
 
-##### arch
+##### archetype.arch
 
 Just "x86-64_linux" for now.
 
-##### user
+##### archetype.user
 
 Can be either "chrisl" or "vmuser". Defaults to "chrisl".
 Anything else will return an error.
 
-##### workstation
+##### archetype.workstation
 
-######  hostname
+##### archetype.virtual-machine
 
-###### apps
-	
-####### editor
+##### archetype.user
 
-####### pdf-viewer
-	
-####### browser
-	
-###### services
+##### archetype.dependsOn
 
-##### virtual-machine	
+##### archetype.sync
 
-##### desktop-environment
+##### archetype.disks
 
-###### window-manager 
-
-###### gnome
-
-###### display-manager
-
-##### dependsOn
-
-##### sync
-
-##### name
-
-##### disks
