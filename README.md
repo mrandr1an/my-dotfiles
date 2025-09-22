@@ -1,5 +1,5 @@
-[!CAUTION]
-This project is still in very early development
+> [!CAUTION]
+> This project is still in very early development
 
 # Usage Notes - Documentation
 
