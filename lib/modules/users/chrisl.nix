@@ -11,4 +11,9 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
   home-manager.users.chrisl = import ../../../hm/users/chrisl.nix;
+  home-manager.extraSpecialArgs = {
+    desktopChoices = {
+      niri = true;
+    };
+  };
 }

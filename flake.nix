@@ -55,6 +55,9 @@
                  desktop-environment.window-manager = "niri";
                  user.userName = "chrisl";
                };
+               virtual-machine = {
+                 user.userName = "henlo";
+               };
              };
            });
        };
