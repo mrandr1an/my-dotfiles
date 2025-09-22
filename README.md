@@ -43,6 +43,13 @@ a seperate partition from an external USB.
 
 For the virtual-machines, that is `/home/${users}/.keys`.
 
+### System Interaction 
+
+The systems are declared in nix code. So obviously before installation
+there must be objects, written in code, that represent certain
+attributes of a system. Those objects can be hostnames, syncthing ids,
+ssh keys, etc. Those must stored in the [archetype](#Archetype-Schema) 
+
 ## Flake
 
 [Flakes](https://wiki.nixos.org/wiki/Flakes) are part of NixOS. They
@@ -51,12 +58,12 @@ provide a uniform way to structure nix projects and much more.
 My flake defines a function `mkSystem` that takes as input the inputs
 of the flake and an **archetype** schema and returns a nixosSystem.
 
-The schema is a nixos **attrset** that can either contain a _desktop_
+The schema is a nixos **attrset** that can either contain a _workstation_
 attribute:
 
 ``` nix
   archetype = {
-	desktop = desktopAttrs;
+	workstation = workstationAttrs;
   };
 ```
 
@@ -72,4 +79,49 @@ The difference between the two attrssets lies between the hardware
 configuration that is produced, since virtual-machines must be
 optimized as QEMU guests. There are, however other differences.
 
+### Archetype Schema
 
+#### archetype
+
+Describes the system with the attributes below.
+
+##### arch
+
+Just "x86-64_linux" for now.
+
+##### user
+
+Can be either "chrisl" or "vmuser". Defaults to "chrisl".
+Anything else will return an error.
+
+##### workstation
+
+######  hostname
+
+###### apps
+	
+####### editor
+
+####### pdf-viewer
+	
+####### browser
+	
+###### services
+
+##### virtual-machine	
+
+##### desktop-environment
+
+###### window-manager 
+
+###### gnome
+
+###### display-manager
+
+##### dependsOn
+
+##### sync
+
+##### name
+
+##### disks
