@@ -21,8 +21,13 @@ in
             package = lib.mkOption {
             type = lib.types.package;
             example = pkgs.gnome-themes-extra;
+            default = pkgs.gnome-themes-extra;
             };
         };
+      }; 
+      default = {
+        name = "Adwaita";
+        package = pkgs.gnome-themes-extra;
       };
     };
 
@@ -42,6 +47,10 @@ in
             };
         };
       };
+      default = {
+          name = "Adwaita";
+          package = pkgs.adwaita-icon-theme;
+        };
     };
 
     font = lib.mkOption {
@@ -66,10 +75,15 @@ in
             };
         };
       };
+      default = {
+          name = "Cantarell";
+          package = pkgs.cantarell-fonts;
+        };
     };
 
     extraCss = lib.mkOption {
       type = lib.types.str;
+      default = "";
     };
 
   };
