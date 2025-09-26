@@ -99,13 +99,17 @@ Anything else will return an error.
 
 ##### archetype.workstation
 
+If enabled you cannot set `virtual-machine.enable = true`.
+
 ##### archetype.virtual-machine
 
-##### archetype.user
+If enabled you cannot set `workstation.enable = true`.  Generates
+hardware configuration optimized for KVM virtual machines.
+
+##### archetype.desktop
 
 ##### archetype.dependsOn
 
 ##### archetype.sync
 
 ##### archetype.disks
-
