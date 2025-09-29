@@ -9,6 +9,8 @@ in
   "id_github_workstation.age".publicKeys = [ workstation_key ];
   "id_github_workstation_pub.age".publicKeys = [ workstation_key ];
   "email_password.age".publicKeys = [ workstation_key ];
+  "root_password_laptop.age".publicKeys = [ workstation_key ];
+  "root_password_vm.age".publicKeys = [ workstation_key ];
   "chrisl_password.age".publicKeys = [ workstation_key ];
   "vmuser_password.age".publicKeys = [ syncthingVM_key ];
 }
