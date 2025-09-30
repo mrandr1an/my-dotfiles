@@ -22,7 +22,7 @@ in
 
     users.users."${cfg.username}" = {
       isNormalUser = true;
-      hashedPasswordFile = config.age.secrets."${cfg.username}_password.path";
+      hashedPasswordFile = config.age.secrets."${cfg.username}_password".path;
       extraGroups = cfg.groups;
     };
 
