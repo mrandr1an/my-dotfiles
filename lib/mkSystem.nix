@@ -1,6 +1,16 @@
 #lib/mkSystem.nix
 {inputs}:
-{archetype}:
+{host}:
+let
+  scanSchema = import ./scanSchema.nix;
+  mkDisko =
+    let
+      mkDisko1 = import ./mkDisko.nix {archetype = archetype;};
+      mkDisko2 = mkDisko1 {lib = inputs.nixpkgs.lib;};
+    in
+      mkDisko2; 
+  archetype = scanSchema {hostName = host;};
+in
 inputs.nixpkgs.lib.nixosSystem {
   system = archetype.arch;
   specialArgs = { inherit inputs archetype; };
@@ -13,9 +23,7 @@ inputs.nixpkgs.lib.nixosSystem {
         inputs.niri-flake.homeModules.niri
       ];
     }
-    (import ./mkDisko {
-      archetype = archetype;
-     })
+    (mkDisko)
     ./configuration.nix
   ];
 }
