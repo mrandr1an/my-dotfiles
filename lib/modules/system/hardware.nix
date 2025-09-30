@@ -43,20 +43,19 @@ in
 
   config = lib.mkMerge [
 
-    (lib.mkIf cfg.qemu != null {
+    (lib.mkIf cfg.qemu.enable == true {
       imports = []
-                ++ lib.optionals cfg.qemu.guest == true
+                ++ lib.optionals (cfg.qemu.guest == true)
                   [(modulesPath + "/profiles/qemu-guest.nix")];
 
       boot.initrd.availableKernelModules = cfg.qemu.availableKernelModules;
       nixpkgs.hostPlatform = lib.mkDefault cfg.qemu.arch;
     })
 
-    (lib.mkIf cfg.physical != null {
+    (lib.mkIf cfg.physical.enable == true {
       boot.initrd.availableKernelModules = cfg.physical.availableKernelModules;
-      boot.kernelModules = cfg.physical.KernelModules;
+      boot.kernelModules = cfg.physical.kernelModules;
       nixpkgs.hostPlatform = lib.mkDefault cfg.physical.arch;
-      hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     })
   ];
 }
