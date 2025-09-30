@@ -54,7 +54,7 @@ in
         {
           syssoftware = {
             network = {
-              hostname = archetype.hostname;
+              hostname = archetype.virtual-machine.hostname;
               ssh.enable = true;
             };
           };
@@ -62,7 +62,7 @@ in
         {
           syssoftware = {
             network = {
-              hostname = archetype.hostname;
+              hostname = archetype.workstation.hostname;
             };
             audio.enable = true;
             bluetooth.enable = true;
