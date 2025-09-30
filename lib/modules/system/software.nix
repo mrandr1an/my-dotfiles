@@ -71,7 +71,7 @@ in
       services.blueman.enable = lib.mkIf cfg.bluetooth.enable true; 
     })
     
-    (lib.mkIf cfg.ssh.enable {
+    (lib.mkIf cfg.network.ssh.enable {
       services.openssh = {
         enable = cfg.network.ssh.enable;
       };
