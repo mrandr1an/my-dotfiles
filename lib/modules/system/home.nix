@@ -25,14 +25,16 @@ in
       hashedPasswordFile = config.age.secrets."${cfg.username}_password.path";
       extraGroups = cfg.groups;
     };
-  };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "backup";
-  home-manager.users."${cfg.username}"=
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.backupFileExtension = "backup";
+    home-manager.users."${cfg.username}"=
     import "../../../hm/users/${cfg.username}.nix";
-  home-manager.extraSpecialArgs = {
+    home-manager.extraSpecialArgs = {
     desktop = archetype.desktop-environment;
   };
+
+  };
+
 }
