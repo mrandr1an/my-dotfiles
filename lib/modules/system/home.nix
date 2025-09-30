@@ -30,7 +30,7 @@ in
     home-manager.useUserPackages = true;
     home-manager.backupFileExtension = "backup";
     home-manager.users."${cfg.username}"=
-    import "../../../hm/users/${cfg.username}.nix";
+      (../../../hm/users + "/${cfg.username}.nix");
     home-manager.extraSpecialArgs = {
     desktop = archetype.desktop-environment;
   };
