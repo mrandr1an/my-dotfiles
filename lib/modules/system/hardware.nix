@@ -1,84 +1,62 @@
-#lib/modules/hardware/hardware.nix
+#lib/modules/system/hardware.nix
 {config,lib,modulesPath,...}:
 let
   inherit (lib) mkOption types;
-  cfg = config.hardware;
+  cfg = config.syshardware;
 in
 {
-  options.hardware = {
+  options.syshardware = {
 
-    qemu = mkOption {
-      type =  types.submodule {
-        options = {
-          enable = lib.mkEnableOption "Enable qemu virtual hardware.";
-          arch = mkOption {
-            type = types.str;
-            default = "x86_64-linux";
-          };
-          qemuGuestAgent = mkOption {
-            enable = lib.mkEnableOption "Enable qemu guest agent.";
-            default = false;
-          };
-        };
+    qemu = {
+      enable = lib.mkEnableOption "Enable qemu virtual hardware.";
+      arch = mkOption {
+        type = types.str;
+        default = "x86_64-linux" ;
       };
-
-      default = {
-        qemuGuestAgent = true;
+      guest = mkOption {
+        type = types.bool;
+        default = true;
       };
-
+      availableKernelModules = mkOption {
+        type = types.listOf types.str;
+        default = ["uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
+      };
     };
 
     physical = {
-
-    };
-
-    settings = {
-
-      networking = mkOption {
-        type = types.submodule {
-          options = {
-            enable = lib.mkEnableOption "Enable networking.";
-            useDHCP = mkOption {
-              type = types.bool;
-              default = false;
-            };
-          };
-        };
+      enable = lib.mkEnableOption "Enable physical hardware.";
+      arch = mkOption {
+        type = types.str;
+        default = "x86_64-linux" ;
       };
-
-      audio = mkOption {
-
+      availableKernelModules = mkOption {
+        type = types.listOf types.str;
+        default = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod"];
       };
-
-      bluetooth = mkOption {
-
+      kernelModules = mkOption {
+        type = types.listOf types.str;
+        default = ["kvm-intel"];
       };
- 
     };
 
   };
 
   config = lib.mkMerge [
 
-    (lib.mkIf cfg.hardware.physical != null throw "Physical machine hardware not implemented yet.")
+    (lib.mkIf cfg.qemu != null {
+      imports = []
+                ++ lib.optionals cfg.qemu.guest == true
+                  [(modulesPath + "/profiles/qemu-guest.nix")];
 
-    (lib.mkIf cfg.hardware.qemu != null {
-       imports =
-         [
-           (modulesPath + "/profiles/qemu-guest.nix")
-         ];
+      boot.initrd.availableKernelModules = cfg.qemu.availableKernelModules;
+      nixpkgs.hostPlatform = lib.mkDefault cfg.qemu.arch;
+    })
 
-        boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
-
-        nixpkgs.hostPlatform = cfg.qemu.arch;
-
-        networking.useDHCP = cfg.settings.networking.useDHCP;
-        boot.loader.systemd-boot.enable = true;
-        boot.loader.efi.canTouchEfiVariables = true;
-
-        system.stateVersion = "25.05";
-
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    (lib.mkIf cfg.physical != null {
+      boot.initrd.availableKernelModules = cfg.physical.availableKernelModules;
+      boot.kernelModules = cfg.physical.KernelModules;
+      nixpkgs.hostPlatform = lib.mkDefault cfg.physical.arch;
+      hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     })
   ];
 }
