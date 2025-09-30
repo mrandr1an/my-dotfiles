@@ -41,6 +41,8 @@ in
   config = lib.mkMerge [
     {
       networking.hostName = cfg.network.hostname;
+      networking.firewall.allowedTCPPorts = cfg.network.allowedTCPPorts;
+      networking.firewall.allowedUDPPorts = cfg.network.allowedUDPPorts;
     }
 
     (lib.mkIf cfg.audio.enable {
