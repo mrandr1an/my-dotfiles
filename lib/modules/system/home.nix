@@ -1,6 +1,5 @@
 #lib/modules/system/home.nix
-{desktop}:
-{config,lib,...}:
+{config,lib,archetype,...}:
 let
   cfg = config.syshome;
 in
@@ -34,6 +33,6 @@ in
   home-manager.users."${cfg.username}"=
     import "../../../hm/users/${cfg.username}.nix";
   home-manager.extraSpecialArgs = {
-    desktop = desktop;
+    desktop = archetype.desktop-environment;
   };
 }
