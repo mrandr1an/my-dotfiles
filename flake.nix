@@ -50,15 +50,7 @@
        nixosConfigurations = {
          invincible = withSystem "x86_64-linux" (system:
            mkSystem {
-             archetype = {
-               laptop = {
-                 desktop-environment.window-manager = "niri";
-                 user.userName = "chrisl";
-               };
-               virtual-machine = {
-                 user.userName = "henlo";
-               };
-             };
+             host = "laptopEmulator";
            });
        };
      };
