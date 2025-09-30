@@ -1,19 +1,21 @@
 #hm/users/chrisl.nix
-{config,pkgs,lib,desktopChoices,...}:
+{config,pkgs,lib,desktop,...}:
 let
-  choices = desktopChoices;
+  choices = desktop;
 in
 {  
   imports =
-    lib.optional (choices.window-manager == "niri") ../modules/niri.nix;
-
-  home = {
-    username = "chrisl";
-    homeDirectory = "/home/chrisl";
-    stateVersion = "25.05";
-  };
+    [ ../modules/niri.nix];
 
   config  = lib.mkMerge [
+    {
+      home = {
+        username = "chrisl";
+        homeDirectory = "/home/chrisl";
+        stateVersion = "25.05";
+      };
+    }
+
     (lib.mkIf (choices.window-manager == "niri") {
       desktop-environment.window-manager.niri = {
         enable = true;
