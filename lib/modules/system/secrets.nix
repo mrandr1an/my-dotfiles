@@ -28,8 +28,8 @@ in
       path = "/home/chrisl/.ssh/id_github_workstation.pub";
     };
 
-    age.secrets.email_password = {
-      file = ../../secrets/email_password.age;
+    age.secrets.chrisl_password = {
+      file = ../../secrets/chrisl.age;
       owner = "chrisl";
       mode = "0400";
     };
