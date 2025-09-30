@@ -1,11 +1,11 @@
-#lib/modules/system/system.nix
+#lib/modules/system/software.nix
 {config,lib,modulesPath,...}:
 let
   inherit (lib) mkOption types;
-  cfg = config.systemConfig;
+  cfg = config.syssoftware;
 in
 {
-  options.systemConfig = {
+  options.syssoftware= {
 
     network = {
       hostname = mkOption {
