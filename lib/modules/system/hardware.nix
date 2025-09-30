@@ -1,14 +1,10 @@
 #lib/modules/system/hardware.nix
-{config,lib,modulesPath,...}:
+{config,lib,...}:
 let
   inherit (lib) mkOption types;
   cfg = config.syshardware;
 in
-{
-  imports = []
-            ++ lib.optionals (cfg.qemu.guest && cfg.qemu.enable)
-             [(modulesPath + "/profiles/qemu-guest.nix")];
-      
+{ 
   options.syshardware = {
 
     qemu = {
