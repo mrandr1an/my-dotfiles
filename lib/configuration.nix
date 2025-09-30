@@ -81,12 +81,12 @@ in
         };
       secretsConfig = vmOrWs
         {
-          secrets = {
+          syssecrets = {
             privateKeyPaths = [  "/home/chrisl/.ssh/id_workstation" ];
           };
         }
         {
-          secrets = {
+          syssecrets = {
             privateKeyPaths = [  "/home/chrisl/.ssh/id_workstation" ];
           };
         };
