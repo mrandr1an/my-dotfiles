@@ -1,13 +1,13 @@
 #lib/configuration.nix
 {config,lib,archetype,...}:
 let
-  inherit (lib) optionals;
-  isWorkstation = if archetype.workstation != null
+  inherit (lib);
+  isWorkstation = if builtins.hasAttr "workstation" archetype
                   then
                     true
                   else
                     false;
-  isVirtualMachine = if archetype.virtual-machine != null
+  isVirtualMachine = if builtins.hasAttr "virtual-machine" != null
                      then
                        true
                      else
