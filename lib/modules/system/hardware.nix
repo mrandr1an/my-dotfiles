@@ -5,6 +5,10 @@ let
   cfg = config.syshardware;
 in
 {
+  imports = []
+            ++ lib.optionals (cfg.qemu.guest && cfg.qemu.enable)
+             [(modulesPath + "/profiles/qemu-guest.nix")];
+      
   options.syshardware = {
 
     qemu = {
@@ -44,9 +48,6 @@ in
   config = lib.mkMerge [
 
     (lib.mkIf cfg.qemu.enable {
-      imports = []
-                ++ lib.optionals (cfg.qemu.guest == true)
-                  [(modulesPath + "/profiles/qemu-guest.nix")];
 
       boot.initrd.availableKernelModules = cfg.qemu.availableKernelModules;
       nixpkgs.hostPlatform = lib.mkDefault cfg.qemu.arch;
