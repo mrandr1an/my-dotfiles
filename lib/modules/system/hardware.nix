@@ -43,7 +43,7 @@ in
 
   config = lib.mkMerge [
 
-    (lib.mkIf cfg.qemu.enable == true {
+    (lib.mkIf cfg.qemu.enable {
       imports = []
                 ++ lib.optionals (cfg.qemu.guest == true)
                   [(modulesPath + "/profiles/qemu-guest.nix")];
@@ -52,7 +52,7 @@ in
       nixpkgs.hostPlatform = lib.mkDefault cfg.qemu.arch;
     })
 
-    (lib.mkIf cfg.physical.enable == true {
+    (lib.mkIf cfg.physical.enable {
       boot.initrd.availableKernelModules = cfg.physical.availableKernelModules;
       boot.kernelModules = cfg.physical.kernelModules;
       nixpkgs.hostPlatform = lib.mkDefault cfg.physical.arch;
