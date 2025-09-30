@@ -1,5 +1,5 @@
 {
-  arch = "x86-64-linux";
+  arch = "x86_64-linux";
   
   user = "chrisl";
   
@@ -16,7 +16,7 @@
 
   virtual-machine = {
     enable = true;
-    hostName = "invincible";
+    hostname = "invincible";
   };
 
   disks = {
