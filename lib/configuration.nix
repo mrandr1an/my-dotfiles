@@ -55,8 +55,8 @@ in
           syssoftware = {
             network = {
               hostname = archetype.hostname;
+              ssh.enable = true;
             };
-            ssh.enable = true;
           };
         }
         {
