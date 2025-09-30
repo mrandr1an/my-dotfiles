@@ -29,7 +29,7 @@ in
     };
 
     age.secrets.chrisl_password = {
-      file = ../../secrets/chrisl.age;
+      file = ../../secrets/chrisl_password.age;
       owner = "chrisl";
       mode = "0400";
     };
