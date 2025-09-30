@@ -1,5 +1,5 @@
 #lib/modules/system/software.nix
-{config,lib,modulesPath,...}:
+{config,lib,...}:
 let
   inherit (lib) mkOption types;
   cfg = config.syssoftware;
