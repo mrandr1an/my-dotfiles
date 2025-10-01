@@ -20,9 +20,8 @@
   };
 
   disks = {
-
-    ssd = {
-      id = "nvme-eui.002303563020df0f";
+    main = {
+      id = "scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
       content = {
         type = "gpt";
         partitions = {
@@ -66,40 +65,11 @@
                     mountpoint = "/var/log";
                     mountOptions = ["compress=zstd" "noatime"];
                   };
-                };
-              };
-            };
-          };
-        };
-      };
-    };
 
-    hdd = {
-      id = "ata-WDC_WD10SPZX-24Z10_WD-WXM1AC9JLR5C";
-      content = {
-        type = "gpt";
-        partitions = {
-          luks-data = {
-            size = "100%";
-            content = {
-              type = "luks";
-              name = "cryptdata";
-              content = {
-                type = "btrfs";
-                extraArgs = ["-f"];
-                subvolumes = {
                   "@home" = {
                     mountpoint = "/home";
                     mountOptions = ["compress=zstd" "noatime"];
                   };
-                  "@data" = {
-                    mountpoint = "/data";
-                    mountOptions = ["compress=zstd" "noatime"];
-                  };
-                  "@backup" = {
-                    mountpoint = "/backup";
-                    mountOptions = ["compress=zstd" "noatime"];
-                  };
                 };
               };
             };
@@ -107,6 +77,5 @@
         };
       };
     };
-
   };
 }
