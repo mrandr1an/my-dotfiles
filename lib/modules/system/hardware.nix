@@ -1,5 +1,5 @@
 #lib/modules/system/hardware.nix
-{config,lib,...}:
+{config,lib,archetype,...}:
 let
   inherit (lib) mkOption types;
   cfg = config.syshardware;
@@ -41,12 +41,26 @@ in
 
   };
 
-  config = lib.mkMerge [
+  config =
+    let
+      desktopEnabled =
+        if builtins.hasAttr "desktop-environment" archetype
+        then
+          if archetype.desktop-environment.enable then
+            true
+          else
+            false
+        else
+          false;
+    in
+    lib.mkMerge [
 
     (lib.mkIf cfg.qemu.enable {
-
       boot.initrd.availableKernelModules = cfg.qemu.availableKernelModules;
       nixpkgs.hostPlatform = lib.mkDefault cfg.qemu.arch;
+      services.qemuGuest.enable = cfg.qemu.guest;
+      hardware.graphics.enable = lib.mkIf (desktopEnabled) true;
+      hardware.opengl.enable = lib.mkIf (desktopEnabled) true;
     })
 
     (lib.mkIf cfg.physical.enable {
