@@ -1,0 +1,2 @@
+#hm/modules/waybar.nix
+
