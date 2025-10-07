@@ -4,24 +4,23 @@ let
   choices = desktop;
 in
 {  
-  imports =
-    [ ../modules/niri.nix];
-
-  config  = lib.mkMerge [
-    {
-      home = {
-        username = "chrisl";
-        homeDirectory = "/home/chrisl";
-        stateVersion = "25.05";
-      };
-    }
-
-    (lib.mkIf (choices.window-manager == "niri") {
-      desktop-environment.window-manager.niri = {
-        enable = true;
-        src = ../../dotfiles/niri/config.kdl;
-      };
-    })
+  imports = [
+    ../modules/desktop-environment
+    # ../modules/apps
+    # ../modules/core
   ];
 
+  home = {
+    username = "chrisl";
+    homeDirectory = "/home/chrisl";
+    stateVersion = "25.05";
+  };
+
+  desktop-environment =
+    let
+      enableDE = choices.enable;
+    in
+      {
+        enable = enableDE;
+      };
 }

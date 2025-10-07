@@ -5,7 +5,7 @@ in
 {
   imports =
     [
-     ./window-managers 
+     ./window-managers
     ];
 
   options.desktop-environment = {
@@ -13,6 +13,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    window-managers.niri.enable = true;
+    desktop-environment.window-managers.enable = true;
   };
 }
