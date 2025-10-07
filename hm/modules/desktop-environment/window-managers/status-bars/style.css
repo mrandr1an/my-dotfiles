@@ -1,0 +1,88 @@
+/* ========= Monochrome with Borders (Workspace-only border) ========= */
+@define-color block    #111111;
+@define-color block-hi #1a1a1a;
+@define-color text     #f2f2f2;
+@define-color text-hi  #ffffff;
+@define-color dim      #a0a0a0;
+@define-color line     #ffffff;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12.5pt;
+  font-weight: 600;
+  border: none;
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+/* ---------- Block template (ALL non-workspace modules have borders) ---------- */
+#language,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#battery,
+#tray {
+  background: @block;
+  color: @text;
+  padding: 5px 12px;
+  margin: 6px 6px;
+  border-radius: 4px;
+  border: 2px solid @line;  /* distinct borders */
+}
+
+#tray { padding: 4px 8px; }
+
+/* ---------- Workspaces (no border by default; ONLY active/focused gets one) ---------- */
+#workspaces { margin-left: 4px; }
+
+#workspaces button {
+  background: @block;
+  color: @text;
+  padding: 4px 10px;
+  margin: 0 4px;
+  border-radius: 4px;
+  border: none;                 /* no border on inactive */
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+#workspaces button:hover {
+  background: @block-hi;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+  background: @block-hi;
+  color: @text-hi;
+  border: 2px solid @line;      /* ONLY active/focused shows border */
+}
+
+#workspaces button.urgent {
+  /* keep monochrome and borderless; just brighten text */
+  color: @text-hi;
+  background: @block;
+}
+/* ---------- States (grayscale only) ---------- */
+#pulseaudio.muted,
+#network.disconnected {
+  color: @dim;
+  border-color: @dim;
+}
+
+#battery.warning {
+  color: #cccccc;
+  border-color: #cccccc;
+}
+
+#battery.critical {
+  color: #eeeeee;
+  border-color: #eeeeee;
+}
+
+/* Minor polish */
+#clock { letter-spacing: 0.4px; }
