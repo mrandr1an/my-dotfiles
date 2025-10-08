@@ -5,6 +5,10 @@ let
   cfg = config.syssoftware;
 in
 {
+  imports = [
+    ../display-managers/regreet.nix
+  ];
+
   options.syssoftware= {
 
     network = {
@@ -77,6 +81,13 @@ in
      nix.settings.experimental-features = [ "nix-command" "flakes" ];
     }
 
+    #Display Manager
+    {
+      desktop.display-managers.regreet = {
+        enable = true;
+      };
+    }
+    
     {
       networking.hostName = cfg.network.hostname;
       networking.firewall.allowedTCPPorts = cfg.network.allowedTCPPorts;
