@@ -92,6 +92,27 @@ in
       networking.hostName = cfg.network.hostname;
       networking.firewall.allowedTCPPorts = cfg.network.allowedTCPPorts;
       networking.firewall.allowedUDPPorts = cfg.network.allowedUDPPorts;
+
+      networking.enableIPv6 = false;  # disable IPv6 system-wide
+  nix.settings = {
+    # Order matters: checked left→right
+    substituters = [
+      "https://cache.flox.dev"
+      "https://nix-community.cachix.org"
+      "https://cache.garnix.io"
+      "https://cache.nixos.org"
+    ];
+
+    trusted-public-keys = [
+      # flox
+      "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+      # nix-community
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      # garnix
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      # cache.nixos.org key is included by default, leaving it out is fine
+    ];
+  };
     }
 
     (lib.mkIf cfg.audio.enable {
