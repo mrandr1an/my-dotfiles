@@ -42,6 +42,7 @@
             content = {
               type = "luks";
               name = "cryptroot";
+              passwordFile = "/tmp/disk-1.key"; 
               content = {
                 type = "btrfs";
                 extraArgs = ["-f"]; 
